@@ -1,28 +1,29 @@
 :root{
-  --bg0:#0a0a0a;
-  --bg1:#0f1419;
-  --bg2:#1a1a1a;
-  --bg3:#2a2a2a;
+  --bg0:#0b0c10;
+  --bg1:#0f1117;
+  --bg2:#141821;
+  --card:rgba(20,24,33,.55);
 
-  --petro:#1e3a5f;
-  --petro2:#2d4a6e;
-  --steel:#4a5f7f;
-
-  --gold:#c9a961;
+  --navy:#0b1b2b;          /* azul marinho sutil */
+  --navy2:#102a44;
+  --steel:#7a8796;         /* cinza aço */
+  --silver:#cfd6df;        /* prata */
 
   --txt:#ffffff;
-  --muted:#b0b8c1;
-  --line:rgba(74,95,127,.22);
+  --muted:#b8c0cc;
+  --line:rgba(207,214,223,.14);
+
+  --shadow: 0 25px 90px rgba(0,0,0,.60);
 }
 
-*{box-sizing:border-box}
-html,body{height:100%}
 body{
   margin:0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
   color:var(--txt);
-  background: radial-gradient(1200px 600px at 50% 20%, rgba(30,58,95,.25), transparent 60%),
-              linear-gradient(135deg, var(--bg0), var(--bg1), var(--bg2));
+  background:
+    radial-gradient(900px 500px at 20% 10%, rgba(16,42,68,.35), transparent 60%),
+    radial-gradient(700px 450px at 80% 30%, rgba(122,135,150,.14), transparent 60%),
+    linear-gradient(135deg, var(--bg0), var(--bg1), var(--bg2));
 }
 
 .hero{
