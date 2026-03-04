@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Protocolo IAM</title>
+  <meta name="description" content="Diagnóstico rápido do seu Índice de Atratividade Masculina (IAM)." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="hero">
+    <div class="hero__wrap">
+      <div class="badge">PROTOCOLO IAM</div>
+
+      <h1 class="hero__title">
+        Descubra seu <span class="grad">Índice de Atratividade Masculina</span>
+      </h1>
+
+      <p class="hero__sub">
+        Você não precisa “virar outra pessoa”. Você precisa identificar com precisão
+        onde está perdendo atração e ajustar o que dá resultado.
+      </p>
+
+      <p class="hero__hook">
+        “Atração sem sexualidade vira amizade.”
+      </p>
+
+      <div class="hero__ctaRow">
+        <button id="openQuizBtn" class="btn btn--primary">Descobrir meu IAM</button>
+        <button id="openQuizBtn2" class="btn btn--ghost">Fazer diagnóstico agora</button>
+      </div>
+
+      <div class="hero__proof">
+        <div class="proofCard">
+          <div class="proofCard__kpi">3–4 min</div>
+          <div class="proofCard__txt">Diagnóstico rápido</div>
+        </div>
+        <div class="proofCard">
+          <div class="proofCard__kpi">8 pilares</div>
+          <div class="proofCard__txt">Clareza objetiva</div>
+        </div>
+        <div class="proofCard">
+          <div class="proofCard__kpi">Plano</div>
+          <div class="proofCard__txt">Próximos passos</div>
+        </div>
+      </div>
+
+      <p class="hero__fineprint">
+        *Conteúdo informativo e prático. Sem promessas milagrosas.
+      </p>
+    </div>
+  </main>
+
+  <!-- MODAL -->
+  <div id="modalOverlay" class="overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal__top">
+        <div class="modal__topLeft">
+          <div id="stepLabel" class="stepLabel">Pergunta 1 de 24</div>
+          <div class="bar">
+            <div id="barFill" class="bar__fill" style="width: 0%"></div>
+          </div>
+        </div>
+        <button id="closeModalBtn" class="iconBtn" aria-label="Fechar">✕</button>
+      </div>
+
+      <!-- QUIZ -->
+      <section id="quizView" class="view">
+        <h2 id="questionText" class="qTitle">Carregando…</h2>
+        <div id="optionsWrap" class="options"></div>
+
+        <div class="nav">
+          <button id="prevBtn" class="btn btn--ghost" disabled>Voltar</button>
+          <button id="nextBtn" class="btn btn--primary" disabled>Próxima</button>
+        </div>
+      </section>
+
+      <!-- LEAD GATE -->
+      <section id="leadView" class="view hidden">
+        <h2 class="qTitle">Seu diagnóstico está pronto.</h2>
+        <p class="muted">
+          Para ver seu IAM completo e descobrir exatamente onde evoluir, confirme seus dados.
+        </p>
+
+        <div class="formGrid">
+          <input id="leadName" class="input" placeholder="Nome" autocomplete="name" />
+          <input id="leadEmail" class="input" placeholder="Email" autocomplete="email" />
+          <input id="leadPhone" class="input" placeholder="Telefone (WhatsApp)" autocomplete="tel" />
+        </div>
+
+        <div class="note">
+          🔒 Dados privados. Usamos apenas para personalizar a análise.
+        </div>
+
+        <div class="nav">
+          <button id="backToQuizBtn" class="btn btn--ghost">Voltar</button>
+          <button id="seeResultBtn" class="btn btn--primary">Ver meu resultado</button>
+        </div>
+      </section>
+
+      <!-- RESULT -->
+      <section id="resultView" class="view hidden">
+        <div class="resultHeader">
+          <div>
+            <div class="badge small">RESULTADO</div>
+            <h2 class="resultTitle">Seu IAM: <span id="iamScore">—</span>/100</h2>
+            <p id="iamTier" class="muted">—</p>
+          </div>
+          <a id="checkoutBtn" class="btn btn--gold" href="#" target="_blank" rel="noopener">Destravar plano completo</a>
+        </div>
+
+        <div class="resultGrid">
+          <div class="panel">
+            <div class="panel__title">Seus destaques</div>
+            <ul id="highlightsList" class="list"></ul>
+          </div>
+          <div class="panel">
+            <div class="panel__title">Prioridades de evolução</div>
+            <ul id="prioritiesList" class="list"></ul>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__title">Pilares</div>
+          <div id="pillarsBars" class="bars"></div>
+        </div>
+
+        <div class="nav">
+          <button id="restartBtn" class="btn btn--ghost">Refazer diagnóstico</button>
+          <button id="closeAfterBtn" class="btn btn--primary">Fechar</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
