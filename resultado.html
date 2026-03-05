@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seu Resultado IAM — Protocolo IAM</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── RESULTADO-SPECIFIC ─────────────────────── */
+
+/* STICKY NAV override */
+.iam-nav {
+  position: sticky;
+  background: rgba(5,5,7,0.97);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+}
+
+/* ── RESULT HERO ─ */
+.res-hero {
+  padding: 80px 0 60px;
+  text-align: center;
+  position: relative;
+}
+.res-hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 55% 50% at 50% 0%, rgba(41,82,163,0.07), transparent);
+}
+.res-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-family: var(--font-label); font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 3.5px; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 20px;
+}
+.res-eyebrow::before, .res-eyebrow::after {
+  content: ''; width: 24px; height: 1px; background: rgba(41,82,163,0.5);
+}
+.res-name {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.8rem);
+  font-weight: 300; color: rgba(220,224,232,0.55); margin-bottom: 4px;
+}
+.res-subtitle {
+  font-family: var(--font-label); font-size: 0.65rem; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--text-3);
+  margin-bottom: 52px;
+}
+
+/* SCORE RING */
+.score-wrap {
+  position: relative; width: 220px; height: 220px;
+  margin: 0 auto 40px;
+}
+.score-svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.score-track { fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 2.5; }
+.score-fill {
+  fill: none; stroke-width: 2.5; stroke-linecap: round;
+  transition: stroke-dashoffset 2.2s cubic-bezier(0.4,0,0.2,1);
+  filter: drop-shadow(0 0 5px currentColor);
+}
+.score-center {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.score-num {
+  font-family: var(--font-display); font-size: 4.5rem; font-weight: 900;
+  line-height: 1; color: var(--text);
+}
+.score-max {
+  font-family: var(--font-label); font-size: 0.6rem; font-weight: 600;
+  letter-spacing: 2px; color: var(--text-3); text-transform: uppercase; margin-top: 2px;
+}
+.score-tier-badge {
+  font-family: var(--font-label); font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  padding: 5px 14px; border: 1px solid currentColor; margin-top: 8px;
+  display: inline-block;
+}
+
+/* TIER CARD */
+.tier-card {
+  display: inline-block; max-width: 440px;
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 28px 36px; text-align: center; margin-top: 0;
+}
+.tier-name {
+  font-family: var(--font-display); font-size: 1.6rem; font-weight: 900;
+  margin-bottom: 10px; line-height: 1.1;
+}
+.tier-desc { font-size: 0.86rem; color: var(--text-2); line-height: 1.7; }
+
+/* ── VALIDAÇÃO ─ */
+.valid-section { padding: 80px 0; border-top: 1px solid var(--border); }
+.valid-inner { max-width: 680px; }
+.valid-text {
+  font-family: var(--font-display); font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 700; line-height: 1.35; margin-bottom: 20px;
+}
+.valid-body { font-size: 0.92rem; color: var(--text-2); line-height: 1.8; }
+.valid-body p + p { margin-top: 12px; }
+.valid-em {
+  margin-top: 24px; padding: 20px 22px;
+  border-left: 2px solid var(--accent); background: var(--surface);
+  border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  font-family: var(--font-display); font-style: italic; font-size: 1rem;
+  color: rgba(220,224,232,0.55); line-height: 1.5;
+}
+
+/* ── PILARES ─ */
+.pilares-section { padding: 80px 0; border-top: 1px solid var(--border); }
+.pilar-rows { display: flex; flex-direction: column; gap: 2px; margin-top: 40px; }
+.pilar-row {
+  background: var(--surface); border: 1px solid var(--border); padding: 20px 24px;
+  transition: border-color 0.25s;
+}
+.pilar-row:hover { border-color: rgba(41,82,163,0.2); }
+.pilar-row-head {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+}
+.pilar-row-name { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; }
+.pilar-row-score { font-family: var(--font-display); font-size: 1.3rem; font-weight: 900; line-height: 1; }
+.bar-track { height: 2px; background: rgba(255,255,255,0.05); border-radius: 1px; overflow: hidden; margin-bottom: 10px; }
+.bar-fill { height: 100%; border-radius: 1px; width: 0; transition: width 1.6s cubic-bezier(0.4,0,0.2,1); }
+.pilar-insight { font-size: 0.78rem; color: var(--text-3); line-height: 1.55; }
+
+/* ── PONTOS FORTES / GARGALOS ─ */
+.analysis-section { padding: 60px 0; }
+.analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 36px; }
+.analysis-card {
+  background: var(--surface); border: 1px solid var(--border); padding: 28px;
+}
+.analysis-card.ok   { border-left: 2px solid var(--ok); }
+.analysis-card.bad  { border-left: 2px solid var(--danger); }
+.analysis-card-label {
+  font-family: var(--font-label); font-size: 0.58rem; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px;
+  padding-bottom: 12px; border-bottom: 1px solid var(--border);
+}
+.analysis-card.ok  .analysis-card-label { color: var(--ok); }
+.analysis-card.bad .analysis-card-label { color: var(--danger); }
+.analysis-items { display: flex; flex-direction: column; gap: 10px; }
+.analysis-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 0.84rem; color: var(--text-2); line-height: 1.5;
+}
+.analysis-item strong { color: var(--text); display: block; margin-bottom: 1px; }
+.analysis-item::before { flex-shrink: 0; font-size: 0.7rem; margin-top: 2px; }
+.analysis-card.ok  .analysis-item::before { content: '→'; color: var(--ok); opacity: 0.6; }
+.analysis-card.bad .analysis-item::before { content: '!'; color: var(--danger); opacity: 0.6; }
+
+/* ── BREAK DE REALIDADE ─ */
+.break-section {
+  padding: 80px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.break-inner { max-width: 620px; }
+.break-headline {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  font-weight: 900; line-height: 1.1; margin-bottom: 24px;
+}
+.break-body { font-size: 0.92rem; color: var(--text-2); line-height: 1.8; }
+.break-body p + p { margin-top: 12px; }
+.break-items { display: flex; flex-direction: column; gap: 8px; margin: 20px 0; }
+.break-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 0.86rem; color: var(--text-2); line-height: 1.5;
+}
+.break-item::before { content: '×'; color: var(--danger); opacity: 0.5; flex-shrink: 0; margin-top: 1px; }
+.break-close {
+  margin-top: 24px; padding: 18px 20px;
+  border-left: 2px solid var(--accent); background: var(--bg-2);
+  border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  font-family: var(--font-display); font-style: italic; font-size: 0.98rem;
+  color: rgba(220,224,232,0.5); line-height: 1.5;
+}
+
+/* ── OFERTA ─ */
+.offer-section { padding: 100px 0; }
+.offer-box { max-width: 660px; margin: 0 auto; }
+.offer-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-label); font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--accent);
+  border: 1px solid rgba(41,82,163,0.28); padding: 6px 16px; margin-bottom: 22px;
+}
+.offer-title {
+  font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900; line-height: 1.1; margin-bottom: 14px;
+}
+.offer-sub { font-size: 0.94rem; color: var(--text-2); line-height: 1.7; margin-bottom: 36px; }
+.offer-includes { display: flex; flex-direction: column; gap: 2px; margin-bottom: 44px; }
+.offer-item {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 18px 22px; display: flex; gap: 16px;
+  transition: border-color 0.2s;
+}
+.offer-item:hover { border-color: rgba(41,82,163,0.2); }
+.offer-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+.offer-item-title { font-family: var(--font-display); font-size: 0.94rem; font-weight: 700; margin-bottom: 3px; }
+.offer-item-desc { font-size: 0.77rem; color: var(--text-2); line-height: 1.55; }
+
+/* PRICE */
+.price-row { display: flex; align-items: flex-end; gap: 20px; margin-bottom: 20px; }
+.price-old { font-size: 1rem; color: var(--text-3); text-decoration: line-through; margin-bottom: 4px; }
+.price-new { font-family: var(--font-display); font-size: 3.2rem; font-weight: 900; line-height: 1; }
+.price-note { font-family: var(--font-label); font-size: 0.58rem; font-weight: 600; letter-spacing: 1.5px; color: var(--text-3); margin-top: 4px; }
+
+/* GUARANTEE */
+.guarantee {
+  display: flex; align-items: flex-start; gap: 16px;
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 18px 22px; margin: 16px 0;
+}
+.guarantee-icon { font-size: 1.3rem; flex-shrink: 0; }
+.guarantee-title { font-family: var(--font-display); font-size: 0.92rem; font-weight: 700; margin-bottom: 3px; }
+.guarantee-desc { font-size: 0.78rem; color: var(--text-2); line-height: 1.55; }
+.security-note {
+  text-align: center; font-family: var(--font-label); font-size: 0.58rem;
+  font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-3);
+  margin-top: 12px;
+}
+
+/* ── RESPONSIVE ─ */
+@media (max-width: 768px) {
+  .res-hero { padding: 60px 0 40px; }
+  .analysis-grid { grid-template-columns: 1fr; }
+  .price-row { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+@media (max-width: 480px) {
+  .score-wrap { width: 180px; height: 180px; }
+  .score-num { font-size: 3.5rem; }
+  .tier-card { padding: 20px 22px; }
+  .offer-title { font-size: 1.8rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="iam-nav">
+  <div class="iam-logo">IAM<span>.</span></div>
+  <div class="nav-tag">Diagnóstico Completo</div>
+</nav>
+
+<!-- ══ RESULT HERO ══ -->
+<section class="res-hero section">
+  <div class="res-hero-bg"></div>
+  <div class="container">
+    <div class="res-eyebrow fade-up d1" id="resEyebrow">Protocolo IAM — Resultado</div>
+    <div class="res-name fade-up d2" id="resName">Carregando...</div>
+    <div class="res-subtitle fade-up d2">Índice de Atratividade Masculina</div>
+
+    <div class="score-wrap fade-up d3">
+      <svg class="score-svg" viewBox="0 0 100 100">
+        <circle class="score-track" cx="50" cy="50" r="43"/>
+        <circle class="score-fill" id="scoreFill" cx="50" cy="50" r="43"
+          stroke-dasharray="270.18" stroke-dashoffset="270.18" stroke="var(--accent)"/>
+      </svg>
+      <div class="score-center">
+        <div class="score-num" id="scoreNum">0</div>
+        <div class="score-max">/ 100</div>
+        <div class="score-tier-badge" id="scoreTierBadge" style="color:var(--accent);border-color:var(--accent)">—</div>
+      </div>
+    </div>
+
+    <div class="fade-up d4" style="display:flex;justify-content:center">
+      <div class="tier-card">
+        <div class="tier-name" id="tierName">—</div>
+        <div class="tier-desc" id="tierDesc">Calculando seu diagnóstico...</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VALIDAÇÃO ══ -->
+<section class="valid-section section">
+  <div class="container">
+    <div class="valid-inner">
+      <div class="label-line label">O que o seu resultado revela</div>
+      <div class="valid-text" id="validText">—</div>
+      <div class="valid-body" id="validBody"></div>
+      <div class="valid-em" id="validEm"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PILARES ══ -->
+<section class="pilares-section section">
+  <div class="container">
+    <div class="label-line label">Análise por pilar</div>
+    <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;max-width:520px">
+      Onde você está —<br>e onde está falhando.
+    </h2>
+    <div class="pilar-rows" id="pilarRows"></div>
+  </div>
+</section>
+
+<!-- ══ ANÁLISE FORTES / GARGALOS ══ -->
+<section class="analysis-section section">
+  <div class="container">
+    <div class="label-line label">Diagnóstico</div>
+    <h2 style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900">Pontos fortes vs. gargalos invisíveis</h2>
+    <div class="analysis-grid" id="analysisGrid"></div>
+  </div>
+</section>
+
+<!-- ══ BREAK DE REALIDADE ══ -->
+<section class="break-section section">
+  <div class="container">
+    <div class="break-inner">
+      <div class="label-line label">Por que isso não se resolve sozinho</div>
+      <div class="break-headline">A maioria dos homens passa anos tentando resolver isso da forma errada.</div>
+      <div class="break-body">
+        <p>Eles tentam:</p>
+        <div class="break-items">
+          <div class="break-item">Parecer mais legais</div>
+          <div class="break-item">Ser mais disponíveis</div>
+          <div class="break-item">Agradar mais</div>
+        </div>
+        <p>E acabam reforçando exatamente o padrão que mata a atração.</p>
+        <p>Porque o problema não está no que você faz. Está no padrão de presença que você comunica.</p>
+      </div>
+      <div class="break-close">
+        "Você não precisa virar outro homem. Você precisa calibrar o que você já é — de forma organizada."
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ OFERTA ══ -->
+<section class="offer-section section">
+  <div class="container">
+    <div class="offer-box">
+      <div class="offer-badge">⚡ Plano completo — acesso imediato</div>
+      <h2 class="offer-title">Protocolo IAM 100.<br>Do diagnóstico ao padrão alto.</h2>
+      <p class="offer-sub">Você viu onde está. Agora aqui está o caminho — pilar por pilar, de forma organizada, sem enrolação e sem precisar virar personagem.</p>
+
+      <div class="offer-includes">
+        <div class="offer-item">
+          <div class="offer-icon">📊</div>
+          <div>
+            <div class="offer-item-title">Leitura completa do seu resultado</div>
+            <div class="offer-item-desc">Como interpretar seu score, o que cada pilar significa e por que seus gargalos estão te travando agora.</div>
+          </div>
+        </div>
+        <div class="offer-item">
+          <div class="offer-icon">🎯</div>
+          <div>
+            <div class="offer-item-title">Plano de evolução pilar por pilar</div>
+            <div class="offer-item-desc">O que fazer, o que cortar e os sinais de que você está evoluindo — específico para cada um dos 8 pilares.</div>
+          </div>
+        </div>
+        <div class="offer-item">
+          <div class="offer-icon">⚡</div>
+          <div>
+            <div class="offer-item-title">Rotina 15–20 min/dia (7 + 30 dias)</div>
+            <div class="offer-item-desc">Um protocolo diário para elevar seu IAM de forma consistente sem depender de motivação.</div>
+          </div>
+        </div>
+        <div class="offer-item">
+          <div class="offer-icon">🔧</div>
+          <div>
+            <div class="offer-item-title">Protocolos de situação real</div>
+            <div class="offer-item-desc">Entrada no ambiente, timing, controle pós-rejeição, comunicação de presença.</div>
+          </div>
+        </div>
+        <div class="offer-item">
+          <div class="offer-icon">✅</div>
+          <div>
+            <div class="offer-item-title">Checklists de presença, social e emocional</div>
+            <div class="offer-item-desc">Ferramentas práticas para auditar seu comportamento e ajustar em tempo real.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="price-row">
+        <div>
+          <div class="price-old">R$ 197,00</div>
+          <div class="price-new">R$ 97</div>
+          <div class="price-note">Acesso imediato · entrega digital</div>
+        </div>
+      </div>
+
+      <a href="#checkout" class="btn-primary full large">Quero o Plano Completo →</a>
+
+      <div class="guarantee" style="margin-top:20px">
+        <div class="guarantee-icon">🔒</div>
+        <div>
+          <div class="guarantee-title">Garantia de 7 dias</div>
+          <div class="guarantee-desc">Teste o protocolo por 7 dias completos. Se não achar útil, devolvemos 100% do valor — sem burocracia.</div>
+        </div>
+      </div>
+
+      <div class="security-note">🔐 Pagamento seguro · Acesso imediato · 100% digital</div>
+
+      <div style="margin-top:40px;padding:28px;background:var(--surface);border:1px solid var(--border)">
+        <div class="label-line label" style="margin-bottom:14px">Se você chegou até aqui</div>
+        <p style="font-family:var(--font-display);font-size:1rem;font-style:italic;color:var(--text-2);line-height:1.6">
+          Você já sabe que tem algo para calibrar. O diagnóstico te mostrou onde.<br>
+          Agora você tem duas opções: ignorar o resultado — ou usar isso como ponto de virada.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="iam-footer">
+  <div class="iam-logo">IAM<span>.</span></div>
+  <p>© 2025 Protocolo IAM. Todos os direitos reservados.</p>
+  <p>Diagnóstico educacional</p>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════
+   RESULT DATA + RENDER
+═══════════════════════════════════════ */
+const PILLARS = [
+  "Aparência & Impacto","Atitude Dominante","Jogo Social",
+  "Presença Magnética","Magnetismo","Ambição & Status",
+  "Controle Emocional","Energia"
+];
+
+const TIERS = [
+  { min:0,  max:25,  name:"Invisível Social",    color:"#c94535",
+    valid: "Você existe no ambiente, mas não está sendo percebido da forma que deveria.",
+    body:  "<p>Seu score indica que múltiplos pilares da sua presença estão operando abaixo do limiar que gera atração de forma natural.</p><p>Isso não é sobre quem você é — é sobre o que você está comunicando sem perceber. E isso é calibrável.</p>",
+    em:    "Sua presença ainda não está gerando o impacto que você tem potencial de gerar."
+  },
+  { min:26, max:45,  name:"Cara Legal",           color:"#c98a2a",
+    valid: "Você tem valor real — mas está vazando em pontos críticos.",
+    body:  "<p>Homens com esse score costumam ser respeitados, confiáveis e bem vistos socialmente. O problema não é quem eles são.</p><p>É que existe uma distância entre o valor que eles têm e o que comunica para as pessoas ao redor — especialmente nas interações que importam.</p>",
+    em:    "A percepção que os outros têm de você está abaixo do que você realmente é."
+  },
+  { min:46, max:65,  name:"Presença Instável",    color:"var(--accent-ui)",
+    valid: "Você está acima da média — mas ainda não consistente o suficiente.",
+    body:  "<p>Você tem dias em que tudo flui: presença forte, conexões naturais, tensão que se cria sozinha. Mas esses dias não são consistentes.</p><p>Nos momentos que importam — ambientes novos, interações de alta carga — você ainda cede espaço que deveria ocupar.</p>",
+    em:    "A inconsistência está te custando mais do que você percebe."
+  },
+  { min:66, max:80,  name:"Homem de Presença",    color:"#2d9e6b",
+    valid: "Você tem uma presença real. O próximo nível é torná-la automática.",
+    body:  "<p>Você atrai sem precisar de muito esforço explícito. As pessoas notam quando você entra. Você lidera a vibe na maioria das situações.</p><p>O que separa você do nível elite é refinamento: a capacidade de gerar o mesmo impacto de forma consistente, especialmente nas situações de maior pressão.</p>",
+    em:    "Você está perto — mas perto não é chegado."
+  },
+  { min:81, max:100, name:"Magnetismo Natural",   color:"#2d9e6b",
+    valid: "Você opera num padrão que a maioria dos homens nunca atinge.",
+    body:  "<p>Sua presença, atitude e energia se combinam de forma poderosa. As pessoas sentem isso sem conseguir explicar.</p><p>A sua tarefa agora não é construir do zero — é refinar, sustentar e expandir esse padrão de forma intencional.</p>",
+    em:    "O desafio no seu nível é manter e expandir — não reconstruir."
+  }
+];
+
+const INSIGHTS = [
+  { lo:"Sua primeira impressão não está comunicando o que você vale. Postura, vestimenta e presença física precisam de calibração.", mi:"Você tem presença visual, mas ela é inconsistente. Pequenos ajustes podem amplificar significativamente seu impacto.", hi:"Seu impacto visual é sólido — você comunica valor antes de falar." },
+  { lo:"Você cede espaço com facilidade. Isso é lido como falta de valor — mesmo que você tenha convicções fortes internamente.", mi:"Sua atitude é funcional, mas falta a consistência que cria dominância social de forma natural.", hi:"Você mantém o eixo e se posiciona bem. Esse pilar está contribuindo para sua atração." },
+  { lo:"Você opera na periferia dos grupos — o que limita seu alcance social e reduz as oportunidades de conexão.", mi:"Você tem habilidade social, mas não está usando de forma ativa. Precisa de mais intenção.", hi:"Seu jogo social é um ativo. Você cria conexões e isso amplifica todos os outros pilares." },
+  { lo:"Sua presença física não está trabalhando a seu favor. Voz e linguagem corporal estão perdendo valor no momento que importa.", mi:"Você tem presença, mas de forma intermitente. Precisa torná-la consistente em contextos de alta carga.", hi:"Você comunica com o corpo antes de falar — isso é raro e poderoso." },
+  { lo:"Tensão e flerte são seus maiores pontos cegos. Você navega essas situações no campo seguro — e campo seguro vira amizade.", mi:"Você cria interesse às vezes, mas falta calibração. O resultado é inconsistente.", hi:"Você sabe criar e sustentar tensão. Esse é um dos pilares mais raros — e você está bem posicionado." },
+  { lo:"Falta direção perceptível. Ambição não comunicada é invisível — e invisível não atrai.", mi:"Você tem ambição, mas ela não está sendo comunicada com a intensidade necessária.", hi:"Sua direção de vida é visível e contagiante. Isso eleva seu status percebido naturalmente." },
+  { lo:"Você é reativo emocionalmente — isso drena sua atração mais rápido do que qualquer outro fator.", mi:"Você tem controle razoável, mas situações de pressão ainda te desequilibram.", hi:"Seu eixo emocional é sólido. Estabilidade sob pressão é um dos maiores atrativos masculinos." },
+  { lo:"Sua energia está baixa ou inconsistente. As pessoas sentem isso — e se afastam sem saber explicar por quê.", mi:"Sua energia tem potencial, mas não está constante. Precisa de ativação intencional.", hi:"Você muda o ambiente quando entra. Isso é poder social puro." }
+];
+
+function getBarColor(s) {
+  if (s < 35) return 'var(--danger)';
+  if (s < 55) return 'var(--warn)';
+  if (s < 72) return 'var(--accent)';
+  return 'var(--ok)';
+}
+function getInsight(s, i) {
+  const ins = INSIGHTS[i];
+  return s < 45 ? ins.lo : s < 70 ? ins.mi : ins.hi;
+}
+function getTier(s) {
+  return TIERS.find(t => s >= t.min && s <= t.max) || TIERS[0];
+}
+function animNum(el, target, dur = 1600) {
+  const start = performance.now();
+  const tick = (now) => {
+    const p = Math.min((now - start) / dur, 1);
+    const e = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(e * target);
+    if (p < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+function render(data) {
+  const { name, pillarScores, totalScore } = data;
+  const tier = getTier(totalScore);
+
+  // Header
+  document.getElementById('resName').textContent = name + ',';
+
+  // Tier badge + card
+  document.getElementById('scoreTierBadge').textContent = tier.name;
+  document.getElementById('scoreTierBadge').style.color = tier.color;
+  document.getElementById('scoreTierBadge').style.borderColor = tier.color;
+  document.getElementById('tierName').textContent = tier.name;
+  document.getElementById('tierName').style.color = tier.color;
+  document.getElementById('tierDesc').textContent = getTierDesc(totalScore);
+
+  // Ring
+  setTimeout(() => {
+    animNum(document.getElementById('scoreNum'), totalScore);
+    const fill = document.getElementById('scoreFill');
+    const r = 43, circ = 2 * Math.PI * r;
+    fill.setAttribute('stroke-dasharray', circ.toFixed(2));
+    fill.style.strokeDashoffset = (circ - (totalScore / 100) * circ).toFixed(2);
+    fill.style.stroke = tier.color;
+  }, 400);
+
+  // Validação
+  document.getElementById('validText').textContent = tier.valid;
+  document.getElementById('validBody').innerHTML = tier.body;
+  document.getElementById('validEm').textContent = tier.em;
+
+  // Pilares
+  const rows = document.getElementById('pilarRows');
+  rows.innerHTML = '';
+  pillarScores.forEach((score, i) => {
+    const color = getBarColor(score);
+    const row = document.createElement('div');
+    row.className = 'pilar-row';
+    row.innerHTML = `
+      <div class="pilar-row-head">
+        <div class="pilar-row-name">${PILLARS[i]}</div>
+        <div class="pilar-row-score" style="color:${color}">${score}</div>
+      </div>
+      <div class="bar-track"><div class="bar-fill" data-w="${score}" style="background:${color}"></div></div>
+      <div class="pilar-insight">${getInsight(score, i)}</div>
+    `;
+    rows.appendChild(row);
+  });
+  setTimeout(() => {
+    document.querySelectorAll('.bar-fill').forEach(b => { b.style.width = b.dataset.w + '%'; });
+  }, 500);
+
+  // Analysis
+  const sorted = pillarScores.map((s,i) => ({s,i})).sort((a,b) => b.s - a.s);
+  const strong = sorted.slice(0,2);
+  const gaps   = sorted.slice(-3).reverse();
+  document.getElementById('analysisGrid').innerHTML = `
+    <div class="analysis-card ok">
+      <div class="analysis-card-label">Pontos fortes</div>
+      <div class="analysis-items">
+        ${strong.map(x => `<div class="analysis-item"><div><strong>${PILLARS[x.i]}</strong>${x.s}/100</div></div>`).join('')}
+      </div>
+    </div>
+    <div class="analysis-card bad">
+      <div class="analysis-card-label">Gargalos invisíveis</div>
+      <div class="analysis-items">
+        ${gaps.map(x => `<div class="analysis-item"><div><strong>${PILLARS[x.i]}</strong>${x.s}/100 · prioridade alta</div></div>`).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function getTierDesc(s) {
+  if (s <= 25) return "Múltiplos pilares abaixo do limiar. O caminho começa com clareza — e você acaba de ter a sua.";
+  if (s <= 45) return "Você tem valor real, mas está vazando em pontos críticos. A percepção dos outros está abaixo do que você realmente é.";
+  if (s <= 65) return "Acima da média, mas ainda inconsistente. Nos momentos que importam, você ainda cede o espaço que deveria ocupar.";
+  if (s <= 80) return "Sua presença é forte. Você está próximo do nível onde a atração acontece de forma fluida e consistente.";
+  return "Você opera num padrão raramente visto. A tarefa agora é refinar e sustentar — não reconstruir.";
+}
+
+// INIT
+(function init() {
+  let data;
+  try {
+    const raw = localStorage.getItem('iamResult');
+    data = raw ? JSON.parse(raw) : null;
+  } catch(e) { data = null; }
+
+  if (!data) {
+    // Demo fallback
+    data = {
+      name: "Visitante",
+      pillarScores: [58, 42, 67, 35, 40, 70, 52, 60],
+      totalScore: 53
+    };
+  }
+  render(data);
+})();
+</script>
+</body>
+</html>
