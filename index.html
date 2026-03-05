@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protocolo IAM — Índice de Atratividade Masculina</title>
+<meta name="description" content="8 fatores comportamentais invisíveis determinam se você é percebido como desejável ou apenas um cara legal. Diagnóstico em 4–5 minutos.">
+<link rel="stylesheet" href="style.css">
+<style>
+
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 140px 0 100px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-ambient {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 60% at 65% 40%, rgba(26,58,107,0.1) 0%, transparent 65%),
+    radial-gradient(ellipse 35% 50% at 20% 75%, rgba(26,58,107,0.06) 0%, transparent 55%);
+}
+.hero-grid-line {
+  position: absolute; top: 0; bottom: 0; left: 60%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent 10%, rgba(26,58,107,0.2) 40%, rgba(26,58,107,0.2) 65%, transparent 90%);
+}
+.hero-body {
+  display: grid;
+  grid-template-columns: 1.15fr 320px;
+  gap: 100px;
+  align-items: center;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-label); font-size: 0.65rem; font-weight: 400;
+  letter-spacing: 4px; text-transform: uppercase; color: var(--accent-ui);
+  margin-bottom: 32px;
+}
+.hero-badge::before { content:''; width:28px; height:1px; background:var(--accent-ui); opacity:0.7; }
+
+.hero h1 {
+  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  font-weight: 700; color: var(--text);
+  letter-spacing: -1px; line-height: 1.04;
+  margin-bottom: 0;
+}
+.hero h1 .muted {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(216,220,228,0.22);
+}
+.hero h1 .break { display: block; }
+
+.hero-structural {
+  font-family: var(--font-body);
+  font-size: 0.98rem; font-weight: 400; color: var(--text-2);
+  line-height: 1.75; max-width: 500px;
+  margin: 24px 0 0;
+}
+.hero-structural strong { color: var(--text); font-weight: 600; }
+
+.hero-quote {
+  font-family: var(--font-display);
+  font-size: 1.1rem; font-style: italic;
+  color: rgba(216,220,228,0.38);
+  border-left: 2px solid var(--accent-ui);
+  padding-left: 20px;
+  margin: 32px 0 44px;
+  line-height: 1.6;
+}
+.hero-quote span {
+  display: block;
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+.hero-meta {
+  display: flex; align-items: center; gap: 24px;
+  margin-top: 22px; flex-wrap: wrap;
+}
+.hero-meta-item {
+  font-family: var(--font-label); font-size: 0.6rem; font-weight: 400;
+  letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-3);
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-meta-item::before {
+  content:''; width:4px; height:4px; border-radius:50%;
+  background:var(--accent-ui); opacity:0.55;
+}
+
+/* VISUAL RING */
+.hero-visual { display:flex; align-items:center; justify-content:center; }
+.vis-ring-wrap { position:relative; width:280px; height:280px; }
+.vis-ring-outer {
+  position:absolute; inset:0; border-radius:50%;
+  border:1px solid rgba(26,58,107,0.25);
+  animation: rotateSlow 30s linear infinite;
+}
+.vis-ring-outer::before {
+  content:''; position:absolute; top:-4px; left:50%; transform:translateX(-50%);
+  width:7px; height:7px; border-radius:50%;
+  background:var(--accent-ui); box-shadow:0 0 12px var(--accent-ui);
+}
+.vis-ring-mid {
+  position:absolute; inset:30px; border-radius:50%;
+  border:1px solid rgba(26,58,107,0.14);
+  animation: rotateReverse 20s linear infinite;
+}
+.vis-ring-inner {
+  position:absolute; inset:60px; border-radius:50%;
+  border:1px solid rgba(26,58,107,0.09);
+  background:radial-gradient(circle, rgba(26,58,107,0.05), transparent);
+  display:flex; align-items:center; justify-content:center;
+}
+.vis-iam {
+  font-family:var(--font-label); font-size:0.85rem; font-weight:500;
+  letter-spacing:6px; color:rgba(41,82,163,0.5); text-align:center;
+}
+.vis-score {
+  font-family:var(--font-display); font-size:3.2rem; font-weight:700;
+  color:rgba(216,220,228,0.06); line-height:1; text-align:center;
+}
+.vis-label {
+  font-family:var(--font-label); font-size:0.5rem; letter-spacing:2px;
+  color:var(--text-3); text-transform:uppercase; text-align:center;
+}
+
+/* ══════════════════════════════════════════
+   PROOF STRIP
+══════════════════════════════════════════ */
+.proof-strip {
+  padding: 18px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  display: flex; justify-content: center; gap: 56px;
+  flex-wrap: wrap; position: relative; z-index: 1;
+}
+.proof-strip-item { text-align: center; }
+.proof-strip-val {
+  font-family: var(--font-display); font-size: 1.45rem; font-weight: 700;
+  color: var(--text); line-height: 1;
+}
+.proof-strip-label {
+  font-family: var(--font-label); font-size: 0.58rem; font-weight: 400;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--text-3); margin-top: 4px;
+}
+
+/* ══════════════════════════════════════════
+   MOTIVO ESTRUTURAL
+══════════════════════════════════════════ */
+.motivo-section { padding: 110px 0; }
+.motivo-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.motivo-left h2 {
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  font-weight: 700; line-height: 1.05; margin-bottom: 20px;
+}
+.motivo-left h2 em {
+  font-style: italic; font-weight: 600;
+  color: rgba(216,220,228,0.28);
+}
+.motivo-body {
+  font-family: var(--font-body);
+  font-size: 0.95rem; color: var(--text-2); line-height: 1.8;
+}
+.motivo-body p + p { margin-top: 14px; }
+
+.motivo-patterns {
+  display: flex; flex-direction: column; gap: 2px;
+  margin: 24px 0;
+}
+.motivo-pattern {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 2px solid rgba(41,82,163,0.3);
+  padding: 14px 20px;
+  font-family: var(--font-display);
+  font-style: italic; font-size: 0.98rem;
+  color: rgba(216,220,228,0.45);
+  line-height: 1.4;
+  transition: border-color 0.25s;
+}
+.motivo-pattern:hover { border-left-color: var(--accent-ui); }
+
+.motivo-close {
+  margin-top: 8px;
+  padding: 20px 22px;
+  border-left: 2px solid var(--accent-ui);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.motivo-close p {
+  font-family: var(--font-body);
+  font-size: 0.9rem; color: var(--text-2); line-height: 1.7;
+}
+.motivo-close strong { color: var(--text); }
+
+.motivo-right-head {
+  font-family: var(--font-label);
+  font-size: 0.6rem; font-weight: 400; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--text-3);
+  margin-bottom: 16px;
+}
+
+/* ══════════════════════════════════════════
+   QUEBRA DE CRENÇA
+══════════════════════════════════════════ */
+.crenca-section {
+  padding: 100px 0;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+.crenca-inner { max-width: 860px; }
+.crenca-intro {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700; line-height: 1.15; margin-bottom: 12px;
+}
+.crenca-sub {
+  font-family: var(--font-body);
+  font-size: 0.95rem; color: var(--text-2); line-height: 1.75;
+  margin-bottom: 32px; max-width: 600px;
+}
+.crenca-mitos {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px;
+}
+.crenca-mito {
+  font-family: var(--font-label);
+  font-size: 0.7rem; font-weight: 400; letter-spacing: 2px;
+  color: var(--text-3); border: 1px solid var(--border);
+  padding: 8px 16px; text-transform: uppercase;
+  position: relative;
+}
+.crenca-mito::after {
+  content: '';
+  position: absolute; top: 50%; left: 0; right: 0;
+  height: 1px; background: var(--text-3); opacity: 0.4;
+}
+
+.crenca-body {
+  font-family: var(--font-body);
+  font-size: 0.95rem; color: var(--text-2);
+  line-height: 1.8; margin-bottom: 36px;
+}
+.crenca-body strong { color: var(--text); }
+
+/* IAM CARD DESTAQUE */
+.iam-card {
+  background: var(--bg);
+  border: 1px solid rgba(41,82,163,0.25);
+  padding: 36px 40px;
+  position: relative;
+  overflow: hidden;
+}
+.iam-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(to right, transparent, var(--accent-ui), transparent);
+}
+.iam-card-label {
+  font-family: var(--font-label);
+  font-size: 0.6rem; font-weight: 400; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--text-3); margin-bottom: 12px;
+}
+.iam-card-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700; line-height: 1.1; margin-bottom: 12px;
+}
+.iam-card-title span { color: var(--accent-ui); }
+.iam-card-desc {
+  font-family: var(--font-body);
+  font-size: 0.9rem; color: var(--text-2); line-height: 1.7;
+}
+
+/* PADRÕES LIST */
+.padroes-list {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;
+}
+.padrao-tag {
+  font-family: var(--font-label);
+  font-size: 0.65rem; font-weight: 400; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--accent-ui);
+  border: 1px solid rgba(41,82,163,0.3);
+  padding: 7px 14px;
+}
+
+/* ══════════════════════════════════════════
+   PILARES
+══════════════════════════════════════════ */
+.pilares-section {
+  padding: 100px 0;
+  border-top: 1px solid var(--border);
+}
+.pilares-header {
+  text-align: center; max-width: 580px;
+  margin: 0 auto 20px;
+}
+.pilares-header h2 {
+  font-size: clamp(1.9rem, 3.8vw, 3rem);
+  font-weight: 700; line-height: 1.05; margin-bottom: 12px;
+}
+.pilares-header p {
+  font-family: var(--font-body);
+  font-size: 0.92rem; color: var(--text-2); line-height: 1.7;
+}
+.pilares-tagline {
+  text-align: center;
+  font-family: var(--font-label);
+  font-size: 0.7rem; font-weight: 400; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--text-3);
+  margin-bottom: 52px;
+}
+.pilares-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+.pilar-card {
+  background: var(--bg-2); border: 1px solid var(--border);
+  padding: 26px 22px; transition: all 0.25s;
+  position: relative; overflow: hidden;
+}
+.pilar-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: var(--accent-ui); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.pilar-card:hover::after { transform: scaleX(1); }
+.pilar-card:hover { background: var(--surface-2); border-color: rgba(41,82,163,0.2); }
+.pilar-n {
+  font-family: var(--font-label); font-size: 0.55rem; font-weight: 400;
+  letter-spacing: 2px; color: var(--text-3); margin-bottom: 10px;
+}
+.pilar-nome {
+  font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+  color: var(--text); line-height: 1.2; margin-bottom: 7px;
+}
+.pilar-desc { font-size: 0.73rem; color: var(--text-3); line-height: 1.55; font-family: var(--font-body); }
+
+.pilares-quote {
+  text-align: center; margin-top: 52px;
+  font-family: var(--font-display);
+  font-style: italic; font-size: 1.1rem;
+  color: var(--text-2); line-height: 1.55;
+  max-width: 560px; margin-left: auto; margin-right: auto;
+}
+.pilares-cta { text-align: center; margin-top: 36px; }
+
+/* ══════════════════════════════════════════
+   BENEFÍCIOS
+══════════════════════════════════════════ */
+.ben-section { padding: 100px 0; border-top: 1px solid var(--border); background: var(--surface); }
+.ben-header { max-width: 500px; margin-bottom: 48px; }
+.ben-header h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700; margin-bottom: 10px;
+}
+.ben-header p {
+  font-family: var(--font-body);
+  font-size: 0.92rem; color: var(--text-2); line-height: 1.7;
+}
+.ben-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+.ben-card {
+  background: var(--bg-2); border: 1px solid var(--border);
+  padding: 28px; display: flex; gap: 18px; transition: border-color 0.25s;
+}
+.ben-card:hover { border-color: rgba(41,82,163,0.2); }
+.ben-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+.ben-title {
+  font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+  margin-bottom: 6px; color: var(--text);
+}
+.ben-desc { font-family: var(--font-body); font-size: 0.8rem; color: var(--text-2); line-height: 1.65; }
+
+/* ══════════════════════════════════════════
+   PROVA SOCIAL
+══════════════════════════════════════════ */
+.prova-section { padding: 100px 0; border-top: 1px solid var(--border); }
+.prova-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  margin-top: 48px;
+}
+.prova-card {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 30px 28px;
+}
+.prova-scores {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.prova-before {
+  font-family: var(--font-display); font-size: 2.2rem; font-weight: 700;
+  color: var(--text-3); line-height: 1;
+}
+.prova-arrow { font-size: 0.9rem; color: var(--accent-ui); opacity: 0.45; }
+.prova-after {
+  font-family: var(--font-display); font-size: 2.2rem; font-weight: 700;
+  color: var(--accent-ui); line-height: 1;
+}
+.prova-period {
+  font-family: var(--font-label); font-size: 0.58rem; font-weight: 400;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--text-3); margin-bottom: 14px;
+}
+.prova-divider { width: 28px; height: 1px; background: rgba(41,82,163,0.3); margin-bottom: 14px; }
+.prova-quote {
+  font-family: var(--font-body); font-size: 0.88rem;
+  color: rgba(216,220,228,0.55); line-height: 1.65;
+  font-style: italic;
+}
+.prova-name {
+  font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--text-3); margin-top: 14px;
+}
+
+/* ══════════════════════════════════════════
+   FAQ
+══════════════════════════════════════════ */
+.faq-section { padding: 100px 0; border-top: 1px solid var(--border); background: var(--surface); }
+.faq-inner { max-width: 720px; }
+.faq-list { display: flex; flex-direction: column; gap: 2px; margin-top: 40px; }
+
+.faq-item {
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color 0.25s;
+}
+.faq-item.open { border-color: rgba(41,82,163,0.25); }
+
+.faq-trigger {
+  width: 100%; background: var(--bg-2);
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 22px 26px; cursor: pointer;
+  border: none; text-align: left;
+  transition: background 0.2s;
+}
+.faq-item.open .faq-trigger { background: var(--surface-2); }
+.faq-trigger:hover { background: var(--surface-2); }
+
+.faq-q {
+  font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+  color: var(--text); line-height: 1.3;
+}
+.faq-arrow {
+  width: 28px; height: 28px; flex-shrink: 0;
+  border: 1px solid var(--border-md);
+  display: flex; align-items: center; justify-content: center;
+  margin-left: 20px; transition: all 0.3s ease;
+  color: var(--text-3);
+}
+.faq-arrow svg {
+  width: 10px; height: 10px;
+  transition: transform 0.3s ease;
+}
+.faq-item.open .faq-arrow {
+  border-color: var(--accent-ui);
+  color: var(--accent-ui);
+  background: rgba(41,82,163,0.08);
+}
+.faq-item.open .faq-arrow svg { transform: rotate(180deg); }
+
+.faq-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--bg-2);
+}
+.faq-item.open .faq-body { max-height: 300px; }
+
+.faq-a {
+  padding: 0 26px 22px;
+  font-family: var(--font-body); font-size: 0.86rem;
+  color: var(--text-2); line-height: 1.75;
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+}
+
+/* ══════════════════════════════════════════
+   CTA FINAL
+══════════════════════════════════════════ */
+.cta-final { padding: 120px 0; border-top: 1px solid var(--border); }
+.cta-final-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.cta-tension-label {
+  font-family: var(--font-label); font-size: 0.6rem; font-weight: 400;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--text-3);
+  margin-bottom: 20px;
+}
+.cta-tension h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700; line-height: 1.1; margin-bottom: 28px;
+}
+.cta-options { display: flex; flex-direction: column; gap: 2px; margin-bottom: 0; }
+.cta-option {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 20px 22px;
+}
+.cta-option.bad { border-left: 2px solid rgba(184,60,46,0.4); }
+.cta-option.good { border-left: 2px solid rgba(41,82,163,0.5); }
+.cta-option-label {
+  font-family: var(--font-label); font-size: 0.55rem; font-weight: 400;
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.cta-option.bad  .cta-option-label { color: var(--danger); opacity: 0.7; }
+.cta-option.good .cta-option-label { color: var(--accent-ui); }
+.cta-option p {
+  font-family: var(--font-body); font-size: 0.82rem;
+  color: var(--text-2); line-height: 1.65;
+}
+
+.cta-action {
+  background: var(--surface);
+  border: 1px solid rgba(41,82,163,0.2);
+  padding: 48px 44px;
+  position: relative; overflow: hidden;
+}
+.cta-action::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(to right, transparent, var(--accent-ui), transparent);
+}
+.cta-action-question {
+  font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;
+  line-height: 1.2; margin-bottom: 8px;
+}
+.cta-action-sub {
+  font-family: var(--font-body); font-size: 0.85rem;
+  color: var(--text-2); line-height: 1.65; margin-bottom: 32px;
+}
+.cta-action-question-final {
+  font-family: var(--font-display); font-style: italic;
+  font-size: 1.15rem; color: var(--text-2); margin-bottom: 32px;
+  line-height: 1.4;
+}
+.cta-stack { display: flex; flex-direction: column; gap: 12px; }
+.cta-micro {
+  font-family: var(--font-label); font-size: 0.58rem; font-weight: 400;
+  letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-3);
+  text-align: center;
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .hero-body { grid-template-columns: 1fr; gap: 0; }
+  .hero-visual { display: none; }
+  .hero-grid-line { display: none; }
+  .hero h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); }
+  .pilares-grid { grid-template-columns: repeat(2, 1fr); }
+  .cta-final-grid { grid-template-columns: 1fr; gap: 48px; }
+}
+
+@media (max-width: 768px) {
+  .hero { padding: 110px 0 80px; }
+  .hero h1 { font-size: clamp(2rem, 8vw, 2.8rem); }
+  .motivo-layout { grid-template-columns: 1fr; gap: 48px; }
+  .ben-grid { grid-template-columns: 1fr; }
+  .prova-grid { grid-template-columns: 1fr; }
+  .proof-strip { gap: 28px; padding: 14px 0; }
+  .crenca-mitos { gap: 6px; }
+  .iam-card { padding: 28px 24px; }
+  .cta-action { padding: 36px 28px; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 1.95rem; letter-spacing: -0.5px; }
+  .pilares-grid { grid-template-columns: 1fr; }
+  .btn-primary { padding: 15px 28px; font-size: 0.74rem; }
+  .proof-strip { flex-direction: column; gap: 16px; align-items: center; }
+  .faq-q { font-size: 0.9rem; }
+  .prova-before, .prova-after { font-size: 1.8rem; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="iam-nav">
+  <div class="iam-logo">IAM<span>.</span></div>
+  <div class="nav-tag">Diagnóstico Masculino</div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero section">
+  <div class="hero-ambient"></div>
+  <div class="hero-grid-line"></div>
+  <div class="container">
+    <div class="hero-body">
+      <div>
+        <div class="hero-badge fade-up d1">Calcule seu Índice de Atratividade Masculina</div>
+
+        <h1 class="fade-up d2">
+          <span class="break">Você não é rejeitado.</span>
+          <span class="break">Você nem chega a ser</span>
+          <span class="break muted">uma opção.</span>
+        </h1>
+
+        <p class="hero-structural fade-up d3">
+          Existem <strong>8 fatores comportamentais invisíveis</strong> que determinam se você é percebido antes mesmo de abrir a boca — e eles estão te eliminando da equação antes de você tentar.
+        </p>
+
+        <blockquote class="hero-quote fade-up d4">
+          A diferença entre ser visto como desejável ou apenas "um cara legal" não é subjetiva.
+          <span>É mensurável.</span>
+        </blockquote>
+
+        <button class="btn-primary large fade-up d5" onclick="IAM.open()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          Fazer diagnóstico agora
+        </button>
+
+        <div class="hero-meta fade-up d6">
+          <span class="hero-meta-item">4–5 minutos</span>
+          <span class="hero-meta-item">100% privado</span>
+          <span class="hero-meta-item">Resultado imediato</span>
+        </div>
+      </div>
+
+      <div class="hero-visual fade-up d3">
+        <div class="vis-ring-wrap">
+          <div class="vis-ring-outer"></div>
+          <div class="vis-ring-mid"></div>
+          <div class="vis-ring-inner">
+            <div>
+              <div class="vis-iam">IAM</div>
+              <div class="vis-score">?</div>
+              <div class="vis-label">Seu score</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF STRIP -->
+<div class="proof-strip section">
+  <div class="proof-strip-item"><div class="proof-strip-val">Completo</div><div class="proof-strip-label">Diagnóstico</div></div>
+  <div class="proof-strip-item"><div class="proof-strip-val">Mapeado</div><div class="proof-strip-label">Perfil</div></div>
+  <div class="proof-strip-item"><div class="proof-strip-val">4–5min</div><div class="proof-strip-label">Para o resultado</div></div>
+  <div class="proof-strip-item"><div class="proof-strip-val">100%</div><div class="proof-strip-label">Privado</div></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MOTIVO ESTRUTURAL
+══════════════════════════════════════════ -->
+<section class="motivo-section section">
+  <div class="container">
+    <div class="motivo-layout">
+      <div class="motivo-left">
+        <div class="label-line label">Por que você não entra na equação</div>
+        <h2>Você já percebeu<br>o padrão.<br><em>Só não entendeu<br>de onde vem.</em></h2>
+        <div class="motivo-body">
+          <p>As pessoas gostam de você. A conversa flui. Existe conexão aparente.</p>
+          <p>Mas algo simplesmente não evolui — e você não consegue identificar o que é.</p>
+        </div>
+        <div class="motivo-close">
+          <p>O problema não é quem você é. <strong>É o padrão inconsciente que você comunica a cada interação.</strong> E até hoje, ninguém te deu o diagnóstico.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="motivo-right-head">O padrão que se repete</div>
+        <div class="motivo-patterns">
+          <div class="motivo-pattern">Conversas neutras que não evoluem.</div>
+          <div class="motivo-pattern">Energia confortável demais — sem tensão.</div>
+          <div class="motivo-pattern">O clássico modo amizade.</div>
+          <div class="motivo-pattern">Interesse que aparece e esfria sem explicação.</div>
+        </div>
+        <div class="motivo-close" style="margin-top:0">
+          <p>Cada um desses padrões tem uma causa estrutural. <strong>O IAM identifica qual é a sua.</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     QUEBRA DE CRENÇA
+══════════════════════════════════════════ -->
+<section class="crenca-section section">
+  <div class="container">
+    <div class="crenca-inner">
+      <div class="label-line label">A maioria dos conselhos masculinos é superficial</div>
+      <p class="crenca-intro">Você já ouviu tudo isso.</p>
+      <div class="crenca-mitos">
+        <div class="crenca-mito">"É só ter dinheiro"</div>
+        <div class="crenca-mito">"É só ter shape"</div>
+        <div class="crenca-mito">"É só ser confiante"</div>
+      </div>
+      <p class="crenca-body">
+        Mas se isso fosse verdade, não existiriam homens bem-sucedidos que ainda assim são percebidos como inseguros — ou apenas confortáveis.<br><br>
+        <strong>A atração social masculina é muito mais sutil.</strong> Ela depende de padrões que ninguém te ensinou a medir.
+      </p>
+
+      <div class="iam-card">
+        <div class="iam-card-label">O que realmente determina sua percepção</div>
+        <div class="iam-card-title">
+          <span>IAM</span> — Índice de Atratividade Masculina.
+        </div>
+        <div class="iam-card-desc">
+          Um sistema que mede os padrões invisíveis que criam atração real — não aparência, não dinheiro, não sorte.
+        </div>
+        <div class="padroes-list">
+          <span class="padrao-tag">Postura</span>
+          <span class="padrao-tag">Presença</span>
+          <span class="padrao-tag">Comunicação</span>
+          <span class="padrao-tag">Leitura social</span>
+          <span class="padrao-tag">Tensão emocional</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PILARES
+══════════════════════════════════════════ -->
+<section class="pilares-section section">
+  <div class="container">
+    <div class="pilares-header">
+      <div class="label-line label" style="justify-content:center">O sistema que ninguém te mostrou</div>
+      <h2>8 pilares. 1 número.<br>Zero autoengano.</h2>
+      <p>O IAM mede exatamente como você é percebido nos 8 fatores que criam atração real.</p>
+    </div>
+    <div class="pilares-tagline">8 pilares · 1 número · zero autoengano</div>
+
+    <div class="pilares-grid">
+      <div class="pilar-card"><div class="pilar-n">01</div><div class="pilar-nome">Aparência & Impacto</div><div class="pilar-desc">O que sua presença física comunica antes de você abrir a boca.</div></div>
+      <div class="pilar-card"><div class="pilar-n">02</div><div class="pilar-nome">Atitude Dominante</div><div class="pilar-desc">Como você se posiciona, olha e reage sob pressão.</div></div>
+      <div class="pilar-card"><div class="pilar-n">03</div><div class="pilar-nome">Jogo Social</div><div class="pilar-desc">Sua capacidade de circular, conectar e criar tração em grupos.</div></div>
+      <div class="pilar-card"><div class="pilar-n">04</div><div class="pilar-nome">Presença Magnética</div><div class="pilar-desc">Voz, ritmo, linguagem corporal e peso das suas palavras.</div></div>
+      <div class="pilar-card"><div class="pilar-n">05</div><div class="pilar-nome">Magnetismo Sexual</div><div class="pilar-desc">Tensão, flerte e a habilidade de navegar ambiguidade.</div></div>
+      <div class="pilar-card"><div class="pilar-n">06</div><div class="pilar-nome">Ambição & Status</div><div class="pilar-desc">Direção, propósito e a energia de quem está construindo algo.</div></div>
+      <div class="pilar-card"><div class="pilar-n">07</div><div class="pilar-nome">Controle Emocional</div><div class="pilar-desc">Eixo sob rejeição, tensão e pressão social.</div></div>
+      <div class="pilar-card"><div class="pilar-n">08</div><div class="pilar-nome">Energia Sensual</div><div class="pilar-desc">A vibe que você carrega — e o que ela faz ao ambiente.</div></div>
+    </div>
+
+    <p class="pilares-quote">"Você não melhora o que não mede. E até hoje, você nunca mediu isso."</p>
+
+    <div class="pilares-cta">
+      <p style="font-family:var(--font-body);font-size:0.88rem;color:var(--text-2);max-width:520px;margin:0 auto 28px;line-height:1.7;text-align:center">
+        Cada pilar revela padrões invisíveis que determinam se sua presença passa despercebida, gera curiosidade ou cria magnetismo.
+      </p>
+      <button class="btn-primary" onclick="IAM.open()">Fazer diagnóstico agora</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     BENEFÍCIOS
+══════════════════════════════════════════ -->
+<section class="ben-section section">
+  <div class="container">
+    <div class="ben-header">
+      <div class="label-line label">O que você descobre</div>
+      <h2>O mapa que<br>faltava.</h2>
+      <p>Em poucos minutos você tem o diagnóstico que ninguém te deu até hoje.</p>
+    </div>
+    <div class="ben-grid">
+      <div class="ben-card">
+        <div class="ben-icon">⚡</div>
+        <div>
+          <div class="ben-title">Seus pontos fortes sociais</div>
+          <div class="ben-desc">Os pilares que já funcionam e aumentam sua presença — o que amplificar, não esconder.</div>
+        </div>
+      </div>
+      <div class="ben-card">
+        <div class="ben-icon">🎯</div>
+        <div>
+          <div class="ben-title">Seus gargalos invisíveis</div>
+          <div class="ben-desc">Os padrões que estão matando sua tensão agora — sem você perceber e sem ninguém te avisar.</div>
+        </div>
+      </div>
+      <div class="ben-card">
+        <div class="ben-icon">🔥</div>
+        <div>
+          <div class="ben-title">Seu nível de tensão real</div>
+          <div class="ben-desc">Se você cria atração — ou se as pessoas simplesmente se sentem bem perto de você sem nunca te querer.</div>
+        </div>
+      </div>
+      <div class="ben-card">
+        <div class="ben-icon">📊</div>
+        <div>
+          <div class="ben-title">Sua prioridade de evolução imediata</div>
+          <div class="ben-desc">O pilar exato onde agir primeiro para resultados mais rápidos — sem dispersar energia.</div>
+        </div>
+      </div>
+      <div class="ben-card">
+        <div class="ben-icon">👁</div>
+        <div>
+          <div class="ben-title">Seu padrão em ambientes sociais</div>
+          <div class="ben-desc">Como você entra, ocupa espaço e sustenta presença nos contextos que importam.</div>
+        </div>
+      </div>
+      <div class="ben-card">
+        <div class="ben-icon">🧭</div>
+        <div>
+          <div class="ben-title">Diagnóstico sem filtro</div>
+          <div class="ben-desc">Resultado imediato. Sem enrolação. Sem promessa vazia. Sem horóscopo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROVA SOCIAL
+══════════════════════════════════════════ -->
+<section class="prova-section section">
+  <div class="container">
+    <div class="label-line label">O que muda quando você calibra o padrão</div>
+    <h2 style="font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;max-width:520px">Resultado real.</h2>
+    <div class="prova-grid">
+      <div class="prova-card">
+        <div class="prova-scores"><span class="prova-before">47</span><span class="prova-arrow">→</span><span class="prova-after">91</span></div>
+        <div class="prova-period">Score IAM em 30 dias</div>
+        <div class="prova-divider"></div>
+        <p class="prova-quote">"Simplesmente a garota que eu sou apaixonado desde a escola começou a me notar e vamos sair esse final de semana! Confesso que eu achei que seria só mais um papo furado de masculinidade mas realmente funcionou e agora depois de entender tudo parece tão fácil"</p>
+        <div class="prova-name">— Marcelo C.</div>
+      </div>
+      <div class="prova-card">
+        <div class="prova-scores"><span class="prova-before">38</span><span class="prova-arrow">→</span><span class="prova-after">71</span></div>
+        <div class="prova-period">Score IAM em 45 dias</div>
+        <div class="prova-divider"></div>
+        <p class="prova-quote">"Eu achava que o problema era não ter assunto kkkk Mas depois de descobrir meu índice e como cada fator funciona, as coisas mudaram por aqui!"</p>
+        <div class="prova-name">— Gabriel M.</div>
+      </div>
+      <div class="prova-card">
+        <div class="prova-scores"><span class="prova-before">29</span><span class="prova-arrow">→</span><span class="prova-after">67</span></div>
+        <div class="prova-period">Score IAM em 30 dias</div>
+        <div class="prova-divider"></div>
+        <p class="prova-quote">"Sempre fui 'o amigo legal' e não entendia o pq… mas o diagnóstico mostrou que meu magnetismo tava em zero hahaha depois de entender o que fazer só ajustei e funcionou."</p>
+        <div class="prova-name">— Rafael K.</div>
+      </div>
+      <div class="prova-card">
+        <div class="prova-scores"><span class="prova-before">44</span><span class="prova-arrow">→</span><span class="prova-after">83</span></div>
+        <div class="prova-period">Score IAM em 60 dias</div>
+        <div class="prova-divider"></div>
+        <p class="prova-quote">"Admito que eu não acreditava nessa história de métodos e etc. Mas depois que vi meu diagnóstico entendi que tudo é técnica, e por isso funciona."</p>
+        <div class="prova-name">— André P.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════ -->
+<section class="faq-section section">
+  <div class="container">
+    <div class="faq-inner">
+      <div class="label-line label">Dúvidas que aparecem sempre</div>
+      <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;margin-bottom:0">Perguntas frequentes.</h2>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-trigger" onclick="toggleFaq(this)">
+            <span class="faq-q">Meus dados vão ser expostos?</span>
+            <span class="faq-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </button>
+          <div class="faq-body">
+            <div class="faq-a">Não. O diagnóstico é 100% privado. Suas respostas são usadas apenas para gerar seu resultado personalizado. Nada é compartilhado.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" onclick="toggleFaq(this)">
+            <span class="faq-q">Quanto tempo leva para fazer?</span>
+            <span class="faq-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </button>
+          <div class="faq-body">
+            <div class="faq-a">Entre 4 e 5 minutos. São perguntas objetivas sobre comportamento em situações reais. Você responde e recebe o resultado na hora.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" onclick="toggleFaq(this)">
+            <span class="faq-q">Isso é tipo "curso de sedução"?</span>
+            <span class="faq-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </button>
+          <div class="faq-body">
+            <div class="faq-a">Não. É diagnóstico comportamental. Não ensinamos técnicas de "pegação". Mostramos onde seu padrão está falhando e como calibrar presença, comunicação e tensão.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" onclick="toggleFaq(this)">
+            <span class="faq-q">O resultado é confiável ou é genérico?</span>
+            <span class="faq-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </button>
+          <div class="faq-body">
+            <div class="faq-a">O IAM usa um sistema de pontuação inteligente cruzada em 8 pilares. O resultado é específico para você, baseado nas suas respostas. Não é horóscopo.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" onclick="toggleFaq(this)">
+            <span class="faq-q">Preciso pagar para fazer o diagnóstico?</span>
+            <span class="faq-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </button>
+          <div class="faq-body">
+            <div class="faq-a">Não. O diagnóstico é gratuito. Você faz o quiz, recebe seu score e análise por pilar — sem pagar nada.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CTA FINAL
+══════════════════════════════════════════ -->
+<section class="cta-final section">
+  <div class="container">
+    <div class="cta-final-grid">
+
+      <div class="cta-tension">
+        <div class="cta-tension-label">Você já sabe que algo não está funcionando.</div>
+        <h2>Duas opções.<br>Uma escolha.</h2>
+        <div class="cta-options">
+          <div class="cta-option bad">
+            <div class="cta-option-label">Continuar assim</div>
+            <p>Repetir o mesmo padrão — conversas que não evoluem, interesse que esfria, sensação de estar sempre disponível mas nunca escolhido.</p>
+          </div>
+          <div class="cta-option good">
+            <div class="cta-option-label">Fazer o diagnóstico</div>
+            <p>Ver exatamente onde está o problema e ter o caminho estruturado para corrigir.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-action">
+        <div class="cta-action-question">4 minutos.<br>Gratuito. Privado.</div>
+        <div class="cta-action-sub">Resultado imediato. Diagnóstico completo. Sem enrolação.</div>
+        <div class="cta-action-question-final">O que te impede?</div>
+        <div class="cta-stack">
+          <button class="btn-primary full large" onclick="IAM.open()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            Fazer diagnóstico agora
+          </button>
+          <div class="cta-micro">Diagnóstico completo · Resultado imediato · 100% privado</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="iam-footer">
+  <div class="iam-logo">IAM<span>.</span></div>
+  <p>© 2025 Protocolo IAM. Todos os direitos reservados.</p>
+  <p>Diagnóstico educacional</p>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     QUIZ MODAL
+══════════════════════════════════════════ -->
+<div class="modal-overlay" id="quizModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-head-title">Protocolo IAM</div>
+      <button class="modal-close-btn" onclick="IAM.close()">×</button>
+    </div>
+    <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="prog-meta">
+      <span id="progText">1 / 24</span>
+      <span id="progPilar">—</span>
+    </div>
+    <div class="q-body" id="quizBody">
+      <div class="q-pilar-tag" id="qPilarTag">—</div>
+      <div class="q-text" id="qText">Carregando...</div>
+      <div class="q-options" id="qOptions"></div>
+    </div>
+    <div class="q-nav" id="qNavBar">
+      <button class="btn-ghost" id="btnBack" onclick="IAM.back()">← Voltar</button>
+      <button class="btn-next-q" id="btnNextQ" onclick="IAM.advance()">Próxima →</button>
+    </div>
+    <div class="lead-wrap" id="leadGate" style="display:none">
+      <h3>Seu diagnóstico<br>está pronto.</h3>
+      <p>Insira seus dados para revelar seu score IAM, análise por pilar e os padrões que estão te travando agora.</p>
+      <div class="form-row"><label>Primeiro nome</label><input type="text" id="leadName" placeholder="Ex: Lucas" autocomplete="given-name"></div>
+      <div class="form-row"><label>E-mail</label><input type="email" id="leadEmail" placeholder="seu@email.com" autocomplete="email"></div>
+      <div class="form-row"><label>WhatsApp</label><input type="tel" id="leadPhone" placeholder="(11) 99999-9999" autocomplete="tel"></div>
+      <button class="btn-primary full" onclick="IAM.submitLead()" style="margin-top:8px">Ver meu resultado completo →</button>
+      <p class="lead-privacy">🔒 Privado. Zero spam.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleFaq(trigger) {
+  const item = trigger.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  // Fecha todos
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  // Abre o clicado se estava fechado
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+<script src="script.js"></script>
+</body>
+</html>
