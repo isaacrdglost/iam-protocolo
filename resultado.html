@@ -1,1 +1,200 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Seu Resultado • Protocolo IAM</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
+<body>
+  <main class="section" style="padding-top:34px;">
+    <div class="container">
+
+      <div class="badge">
+        <span class="dot"></span>
+        Resultado • Protocolo IAM
+      </div>
+
+      <h1 class="h1" style="margin-top:14px;">
+        Seu IAM: <span id="r_iam" class="grad">—</span><span class="muted">/100</span>
+      </h1>
+
+      <p id="r_tier" class="sub" style="max-width:860px;">—</p>
+
+      <div class="split" style="margin-top:12px;">
+        <div class="panel">
+          <div class="panel__title">Destaques</div>
+          <ul id="r_highlights" class="list"></ul>
+        </div>
+        <div class="panel">
+          <div class="panel__title">Gargalos invisíveis</div>
+          <ul id="r_priorities" class="list"></ul>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:12px;">
+        <div class="panel__title">Pilares</div>
+        <div id="r_bars" style="display:grid; gap:10px;"></div>
+      </div>
+
+      <div class="callout" style="margin-top:12px;">
+        Esse resultado não é “quem você é”. É <b>como você está sendo percebido hoje</b>.
+        Se você quer parar de cair no modo amizade, a solução é ajustar os pilares certos.
+      </div>
+
+      <!-- OFERTA -->
+      <section class="panel" style="margin-top:18px;">
+        <div class="panel__title">Oferta</div>
+
+        <div class="split" style="align-items:flex-start;">
+          <div>
+            <h2 class="h2" style="margin-top:0;">Plano Completo — Protocolo IAM 100</h2>
+            <p class="p muted" style="line-height:1.8;">
+              Um plano direto pra você elevar seus pilares até um padrão alto de atração e presença.
+              Sem fantasia. Sem “vibe de guru”. Só execução.
+            </p>
+          </div>
+
+          <div>
+            <a id="r_checkout" class="btn btn--primary" href="#" target="_blank" rel="noopener" style="width:100%; text-align:center;">
+              Destravar meu plano
+            </a>
+            <div class="fineprint" style="margin-top:10px;">
+              Garantia de 7 dias • Acesso imediato
+            </div>
+          </div>
+        </div>
+
+        <div class="split" style="margin-top:12px;">
+          <div class="card">
+            <div class="card__title">O que você recebe</div>
+            <ul class="list">
+              <li><b>Guia por pilar</b>: o que fazer + o que parar de fazer.</li>
+              <li><b>Rotina semanal</b> (15–20 min/dia) pra mudar padrão sem depender de motivação.</li>
+              <li><b>Checklist de presença</b>: postura, voz, linguagem corporal e timing.</li>
+              <li><b>Roteiro social</b>: como entrar, como manter e como criar tração.</li>
+              <li><b>Protocolo anti-amizade</b>: erros que matam tensão e como corrigir.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card__title">Por que isso funciona</div>
+            <ul class="list">
+              <li>Foca no que mais pesa: <b>sinais comportamentais</b>.</li>
+              <li>Você melhora por prioridade: <b>impacto primeiro</b>.</li>
+              <li>Você ganha consistência: sem “dia bom/dia morto”.</li>
+              <li>Você reduz autoengano: mede, corrige, sobe.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top:12px;">
+          <b>Garantia de 7 dias.</b> Se não fizer sentido, você pede reembolso dentro de 7 dias. Simples.
+        </div>
+
+        <div class="ctaRow ctaRow--center" style="margin-top:12px;">
+          <a id="r_checkout2" class="btn btn--primary" href="#" target="_blank" rel="noopener">
+            Quero o plano completo
+          </a>
+          <div class="ctaMeta">Pagamento seguro • Conteúdo digital</div>
+        </div>
+      </section>
+
+      <div class="ctaRow ctaRow--center" style="margin-top:18px;">
+        <a class="btn btn--ghost" href="/">Voltar</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    const payloadRaw = localStorage.getItem("iam_result_v1");
+    if (!payloadRaw) window.location.href = "/";
+
+    const payload = JSON.parse(payloadRaw);
+
+    const tierFrom = (iam) => {
+      if (iam < 40) return "Base: você está deixando atração morrer no modo ‘seguro’. Dá pra corrigir rápido.";
+      if (iam < 70) return "Intermediário: você tem tração — mas ainda entrega neutralidade em pontos críticos.";
+      return "Alto: você gera impacto. Agora é consistência e refinamento (sem cair no automático).";
+    };
+
+    const pretty = (k) => ({
+      aparencia:"Aparência & Impacto",
+      atitude:"Atitude Dominante",
+      social:"Jogo Social",
+      presenca:"Presença Magnética",
+      magnetismo:"Magnetismo",
+      status:"Ambição & Status",
+      emocional:"Controle Emocional",
+      energia:"Energia"
+    }[k] || k);
+
+    document.getElementById("r_iam").textContent = payload.result.iam;
+    document.getElementById("r_tier").textContent = tierFrom(payload.result.iam);
+
+    const hl = document.getElementById("r_highlights");
+    payload.result.highlights.forEach(t => {
+      const li = document.createElement("li");
+      li.textContent = t;
+      hl.appendChild(li);
+    });
+
+    const pr = document.getElementById("r_priorities");
+    payload.result.priorities.forEach(t => {
+      const li = document.createElement("li");
+      li.textContent = t;
+      pr.appendChild(li);
+    });
+
+    const bars = document.getElementById("r_bars");
+    Object.entries(payload.result.pct).forEach(([key, value]) => {
+      const row = document.createElement("div");
+      row.style.display = "grid";
+      row.style.gridTemplateColumns = "180px 1fr 48px";
+      row.style.gap = "10px";
+      row.style.alignItems = "center";
+
+      const name = document.createElement("div");
+      name.style.color = "rgba(184,192,204,.92)";
+      name.style.fontWeight = "900";
+      name.style.letterSpacing = ".06em";
+      name.style.textTransform = "uppercase";
+      name.style.fontSize = "12px";
+      name.textContent = pretty(key);
+
+      const track = document.createElement("div");
+      track.style.height = "10px";
+      track.style.borderRadius = "999px";
+      track.style.background = "rgba(207,214,223,.10)";
+      track.style.overflow = "hidden";
+
+      const fill = document.createElement("div");
+      fill.style.height = "100%";
+      fill.style.width = "0%";
+      fill.style.background = "linear-gradient(90deg, rgba(16,42,68,1), rgba(207,214,223,.55))";
+      fill.style.transition = "width .35s ease";
+      track.appendChild(fill);
+
+      const pct = document.createElement("div");
+      pct.style.color = "rgba(184,192,204,.85)";
+      pct.style.fontWeight = "900";
+      pct.style.fontSize = "12px";
+      pct.textContent = value + "%";
+
+      row.appendChild(name);
+      row.appendChild(track);
+      row.appendChild(pct);
+      bars.appendChild(row);
+
+      requestAnimationFrame(() => fill.style.width = value + "%");
+    });
+
+    const checkout = payload.checkoutUrl || "#";
+    document.getElementById("r_checkout").href = checkout;
+    document.getElementById("r_checkout2").href = checkout;
+  </script>
+</body>
+</html>
