@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protocolo IAM — Índice de Atratividade Masculina</title>
+<meta name="description" content="Descubra os 8 fatores invisíveis que determinam se você é percebido como desejável ou apenas um cara legal. Diagnóstico em 4 minutos.">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── HERO ─────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 10rem 0 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 55% 60% at 65% 40%, rgba(41, 82, 163, 0.12) 0%, transparent 65%),
+              radial-gradient(ellipse 35% 50% at 20% 75%, rgba(41, 82, 163, 0.06) 0%, transparent 55%);
+}
+
+.hero-grid-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 60%;
+  width: 1px;
+  background: linear-gradient(to bottom, 
+    transparent 10%, 
+    rgba(41, 82, 163, 0.15) 40%, 
+    rgba(41, 82, 163, 0.15) 65%, 
+    transparent 90%);
+}
+
+.hero-body {
+  display: grid;
+  grid-template-columns: 1.15fr 340px;
+  gap: 6rem;
+  align-items: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  margin-bottom: 2rem;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 32px;
+  height: 2px;
+  background: var(--accent-primary);
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.hero h1 .outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.15);
+  font-weight: 800;
+}
+
+.hero-mechanism {
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 520px;
+  margin-bottom: 2rem;
+}
+
+.hero-mechanism strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.hero-anchor {
+  font-family: var(--font);
+  font-size: 1.25rem;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--gold);
+  border-left: 3px solid var(--gold);
+  padding-left: 1.5rem;
+  margin: 2rem 0 3rem;
+  line-height: 1.4;
+  display: inline-block;
+}
+
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.hero-meta-item {
+  font-family: var(--font);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hero-meta-item::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+}
+
+/* VISUAL RING */
+.hero-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vis-ring-wrap {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.vis-ring-outer {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(41, 82, 163, 0.2);
+  animation: rotateSlow 30s linear infinite;
+}
+
+.vis-ring-outer::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  box-shadow: 0 0 16px var(--accent-primary);
+}
+
+.vis-ring-mid {
+  position: absolute;
+  inset: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(41, 82, 163, 0.12);
+  animation: rotateReverse 20s linear infinite;
+}
+
+.vis-ring-inner {
+  position: absolute;
+  inset: 60px;
+  border-radius: 50%;
+  border: 1px solid rgba(41, 82, 163, 0.08);
+  background: radial-gradient(circle, rgba(41, 82, 163, 0.06), transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vis-iam {
+  font-family: var(--font);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--accent-primary);
+  text-align: center;
+  opacity: 0.6;
+}
+
+.vis-score {
+  font-family: var(--font);
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.04);
+  line-height: 1;
+  text-align: center;
+}
+
+.vis-label {
+  font-family: var(--font);
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* ── RESPONSIVE HERO ─────── */
+@media (max-width: 1100px) {
+  .hero-body {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .hero-visual {
+    display: none;
+  }
+  .hero-grid-line {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 8rem 0 5rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+  }
+  .hero-mechanism {
+    font-size: 1rem;
+  }
+  .hero-anchor {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2.25rem;
+  }
+  .hero-meta {
+    gap: 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav class="iam-nav">
+  <div class="iam-logo">IAM<span>.</span></div>
+  <div class="nav-tag">Diagnóstico Masculino</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero section">
+  <div class="hero-ambient"></div>
+  <div class="hero-grid-line"></div>
+  <div class="container">
+    <div class="hero-body">
+      <div>
+        <div class="hero-badge fade-up d1">Protocolo IAM — Diagnóstico Privado</div>
+        <h1 class="fade-up d2">
+          A maioria dos<br>
+          homens erra<br>
+          <span class="outline">sem saber.</span>
+        </h1>
+        <p class="hero-mechanism fade-up d3">
+          Existem <strong>8 fatores invisíveis</strong> que determinam se você é percebido como desejável — ou apenas um cara legal. Nenhum deles é dinheiro ou aparência.
+        </p>
+        <blockquote class="hero-anchor fade-up d4">
+          "Atração sem tensão vira amizade."
+        </blockquote>
+        <button class="btn-primary large fade-up d5" onclick="IAM.open()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+          Fazer meu diagnóstico
+        </button>
+        <div class="hero-meta fade-up d6">
+          <span class="hero-meta-item">3–4 minutos</span>
+          <span class="hero-meta-item">24 perguntas</span>
+          <span class="hero-meta-item">100% privado</span>
+        </div>
+      </div>
+      <div class="hero-visual fade-up d3">
+        <div class="vis-ring-wrap">
+          <div class="vis-ring-outer"></div>
+          <div class="vis-ring-mid"></div>
+          <div class="vis-ring-inner">
+            <div>
+              <div class="vis-iam">IAM</div>
+              <div class="vis-score">?</div>
+              <div class="vis-label">Seu score</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF STRIP -->
+<div class="proof-strip section">
+  <div class="container">
+    <div class="proof-strip-grid">
+      <div class="proof-strip-item">
+        <div class="proof-strip-icon">📊</div>
+        <div class="proof-strip-val">Completo</div>
+        <div class="proof-strip-label">Diagnóstico</div>
+      </div>
+      <div class="proof-strip-item">
+        <div class="proof-strip-icon">🎯</div>
+        <div class="proof-strip-val">Mapeado</div>
+        <div class="proof-strip-label">Perfil</div>
+      </div>
+      <div class="proof-strip-item">
+        <div class="proof-strip-icon">⚡</div>
+        <div class="proof-strip-val">4–5min</div>
+        <div class="proof-strip-label">Para o resultado</div>
+      </div>
+      <div class="proof-strip-item">
+        <div class="proof-strip-icon">🔒</div>
+        <div class="proof-strip-val">100%</div>
+        <div class="proof-strip-label">Privado</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="iam-footer">
+  <div class="iam-logo">IAM<span>.</span></div>
+  <p>© 2025 Protocolo IAM. Todos os direitos reservados.</p>
+  <p>Diagnóstico educacional</p>
+</footer>
+
+<!-- QUIZ MODAL -->
+<div class="modal-overlay" id="quizModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-head-title">Protocolo IAM</div>
+      <button class="modal-close-btn" onclick="IAM.close()">×</button>
+    </div>
+    <div class="prog-track">
+      <div class="prog-fill" id="progFill" style="width:0%"></div>
+    </div>
+    <div class="prog-meta">
+      <span id="progText">Pergunta 1 de 24</span>
+      <span id="progPilar">Pilar 1 / 8</span>
+    </div>
+    <div class="q-body" id="quizBody">
+      <div class="q-pilar-tag" id="qPilarTag">—</div>
+      <div class="q-text" id="qText">Carregando...</div>
+      <div class="q-options" id="qOptions"></div>
+    </div>
+    <div class="q-nav" id="qNavBar">
+      <button class="btn-ghost" id="btnBack" onclick="IAM.back()">← Voltar</button>
+      <button class="btn-next-q" id="btnNextQ" onclick="IAM.advance()">Próxima →</button>
+    </div>
+    <div class="lead-wrap" id="leadGate" style="display:none">
+      <h3>Seu diagnóstico<br>está pronto.</h3>
+      <p>Insira seus dados para revelar seu score IAM, análise por pilar e os gargalos que estão te travando agora.</p>
+      <div class="form-row">
+        <label>Primeiro nome</label>
+        <input type="text" id="leadName" placeholder="Ex: Lucas" autocomplete="given-name">
+      </div>
+      <div class="form-row">
+        <label>E-mail</label>
+        <input type="email" id="leadEmail" placeholder="seu@email.com" autocomplete="email">
+      </div>
+      <div class="form-row">
+        <label>WhatsApp</label>
+        <input type="tel" id="leadPhone" placeholder="(11) 99999-9999" autocomplete="tel">
+      </div>
+      <button class="btn-primary full" onclick="IAM.submitLead()" style="margin-top:0.5rem">
+        Ver meu resultado completo →
+      </button>
+      <p class="lead-privacy">🔒 Privado. Zero spam.</p>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
