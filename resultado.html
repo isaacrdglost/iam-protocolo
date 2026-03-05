@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seu Resultado IAM — Protocolo IAM</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+/* ── RESULTADO ESPECÍFICO ─── */
+.resultado-hero {
+  padding: 8rem 0 4rem;
+  text-align: center;
+  background: var(--bg-elevated);
+  position: relative;
+}
+
+.resultado-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 50% at 50% 30%, rgba(41, 82, 163, 0.1), transparent);
+  pointer-events: none;
+}
+
+.resultado-badge {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(41, 82, 163, 0.3);
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.resultado-nome {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 300;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+}
+
+/* SCORE VISUAL */
+.score-display {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto 2rem;
+}
+
+.score-circle {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.score-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.05);
+  stroke-width: 8;
+}
+
+.score-progress {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+.score-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-number {
+  font-size: 5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.score-max {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  margin-top: 0.25rem;
+}
+
+.classificacao {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.625rem 1.5rem;
+  border: 2px solid currentColor;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+/* ANÁLISE LAYOUT */
+.analise-section {
+  padding: 6rem 0;
+}
+
+.analise-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-top: 3rem;
+  align-items: start;
+}
+
+.radar-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.pilares-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+}
+
+.pilar-item {
+  background: var(--bg-card);
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pilar-item-nome {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.pilar-item-score {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+/* CARDS FORTES/GARGALOS */
+.cards-analise {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.card-glow {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-emphasis);
+  border-radius: 8px;
+  padding: 2rem;
+  position: relative;
+  backdrop-filter: blur(8px);
+}
+
+.card-glow.fortes {
+  border-color: rgba(16, 185, 129, 0.3);
+  box-shadow: 0 0 32px rgba(16, 185, 129, 0.08);
+}
+
+.card-glow.gargalos {
+  border-color: rgba(239, 68, 68, 0.3);
+  box-shadow: 0 0 32px rgba(239, 68, 68, 0.08);
+}
+
+.card-titulo {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.card-glow.fortes .card-titulo {
+  color: #10b981;
+}
+
+.card-glow.gargalos .card-titulo {
+  color: #ef4444;
+}
+
+.card-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card-lista-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+}
+
+.card-lista-item strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* DIAGNÓSTICO */
+.diagnostico-section {
+  padding: 6rem 0;
+  background: var(--bg-elevated);
+}
+
+.diagnostico-box {
+  max-width: 800px;
+  margin: 3rem auto 0;
+}
+
+.diagnostico-titulo {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.diagnostico-texto {
+  font-size: 1.0625rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.diagnostico-texto strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.pilar-analise {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.pilar-analise-titulo {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.pilar-analise-texto {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* PILAR PRIORITÁRIO DESTAQUE */
+.pilar-prioritario {
+  background: linear-gradient(135deg, rgba(41, 82, 163, 0.1), rgba(41, 82, 163, 0.05));
+  border: 2px solid var(--accent-primary);
+  border-radius: 8px;
+  padding: 2.5rem;
+  margin: 3rem 0;
+  box-shadow: 0 0 48px rgba(41, 82, 163, 0.15);
+}
+
+.prioritario-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  margin-bottom: 1rem;
+}
+
+.prioritario-titulo {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.prioritario-texto {
+  font-size: 1.0625rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+/* PRÓXIMOS PASSOS */
+.proximos-passos {
+  background: var(--bg-card);
+  border-left: 3px solid var(--accent-primary);
+  padding: 2rem;
+  margin: 3rem 0;
+}
+
+.proximos-passos p {
+  font-size: 1.0625rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.proximos-passos strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* OFERTA */
+.oferta-section {
+  padding: 6rem 0;
+}
+
+.oferta-card {
+  max-width: 800px;
+  margin: 3rem auto 0;
+  background: rgba(255, 255, 255, 0.02);
+  border: 2px solid var(--accent-primary);
+  border-radius: 12px;
+  padding: 3rem;
+  box-shadow: 0 0 64px rgba(41, 82, 163, 0.2);
+}
+
+.oferta-titulo {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.oferta-subtitulo {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.oferta-itens {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.oferta-item {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.oferta-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.oferta-item-titulo {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.oferta-item-desc {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.oferta-item-desc ul {
+  margin-top: 0.75rem;
+  padding-left: 1.25rem;
+}
+
+.oferta-item-desc li {
+  margin-bottom: 0.375rem;
+}
+
+/* PREÇO */
+.preco-box {
+  text-align: center;
+  margin: 3rem 0;
+  padding: 2rem;
+  background: var(--bg-card);
+  border-radius: 8px;
+}
+
+.preco-de {
+  font-size: 1.25rem;
+  color: var(--text-tertiary);
+  text-decoration: line-through;
+  margin-bottom: 0.5rem;
+}
+
+.preco-por {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.preco-info {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  margin-top: 0.75rem;
+}
+
+/* GARANTIA */
+.garantia-box {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-emphasis);
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.garantia-titulo {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.garantia-texto {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+}
+
+/* PROVA SOCIAL RESULTADO */
+.prova-resultado {
+  padding: 6rem 0;
+  background: var(--bg-elevated);
+}
+
+.cases-resultado {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin-top: 3rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .analise-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .cards-analise {
+    grid-template-columns: 1fr;
+  }
+  .cases-resultado {
+    grid-template-columns: 1fr;
+  }
+  .oferta-card {
+    padding: 2rem 1.5rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav class="iam-nav" style="background: rgba(10,10,10,0.95); border-bottom: 1px solid var(--border);">
+  <div class="iam-logo">IAM<span>.</span></div>
+  <div class="nav-tag">Resultado Completo</div>
+</nav>
+
+<!-- HERO RESULTADO -->
+<section class="resultado-hero">
+  <div class="container">
+    <div class="resultado-badge">Resultado do seu Diagnóstico</div>
+    <div class="resultado-nome" id="resultadoNome">Carregando...</div>
+    
+    <div class="score-display">
+      <svg class="score-circle" viewBox="0 0 100 100">
+        <circle class="score-bg" cx="50" cy="50" r="42"/>
+        <circle class="score-progress" id="scoreProgress" cx="50" cy="50" r="42"
+          stroke-dasharray="263.89" stroke-dashoffset="263.89"/>
+      </svg>
+      <div class="score-text">
+        <div class="score-number" id="scoreNumber">0</div>
+        <div class="score-max">/ 100</div>
+      </div>
+    </div>
+    
+    <div class="classificacao" id="classificacao">—</div>
+  </div>
+</section>
+
+<!-- ANÁLISE POR PILAR -->
+<section class="analise-section">
+  <div class="container">
+    <div class="label-line label">Análise detalhada</div>
+    <h2>Como você é percebido<br>em cada pilar</h2>
+    
+    <div class="analise-grid">
+      <div class="radar-container">
+        <canvas id="radarChart"></canvas>
+      </div>
+      
+      <div class="pilares-list" id="pilaresList"></div>
+    </div>
+    
+    <div class="cards-analise">
+      <div class="card-glow fortes">
+        <div class="card-titulo">✓ Seus 3 Pilares Fortes</div>
+        <div class="card-lista" id="pontosFortes"></div>
+      </div>
+      
+      <div class="card-glow gargalos">
+        <div class="card-titulo">⚠ Seus 3 Gargalos Críticos</div>
+        <div class="card-lista" id="gargalos"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIAGNÓSTICO PERSONALIZADO -->
+<section class="diagnostico-section">
+  <div class="container">
+    <div class="label-line label">Diagnóstico personalizado</div>
+    <h2>O que seu resultado significa</h2>
+    
+    <div class="diagnostico-box" id="diagnosticoBox"></div>
+    
+    <div id="analiseSuperficial"></div>
+    
+    <div class="pilar-prioritario" id="pilarPrioritario"></div>
+    
+    <div class="proximos-passos">
+      <p><strong>Agora você tem clareza.</strong></p>
+      <p>Você sabe <strong>exatamente</strong> onde está falhando.<br>
+      Você sabe <strong>exatamente</strong> qual pilar corrigir primeiro.<br>
+      Você sabe <strong>exatamente</strong> o que está drenando sua atração.</p>
+      <p><strong>Mas diagnóstico sem ação é só autoengano organizado.</strong></p>
+      <p>A maioria dos homens para aqui. Eles veem o problema. Sentem o peso da clareza. E depois... não fazem nada.</p>
+      <p>Porque saber <strong>o que fazer</strong> não é o mesmo que saber <strong>como fazer</strong>.</p>
+      <p><strong>E é aí que entra o protocolo.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- OFERTA -->
+<section class="oferta-section">
+  <div class="container">
+    <div class="label-line label" style="justify-content: center;">Protocolo IAM 100</div>
+    
+    <div class="oferta-card">
+      <h2 class="oferta-titulo">Do diagnóstico ao padrão alto.</h2>
+      <p class="oferta-subtitulo">Você acabou de ver onde está. Agora aqui está o caminho — pilar por pilar, passo a passo, sem enrolação.</p>
+      
+      <div class="oferta-itens">
+        <div class="oferta-item">
+          <div class="oferta-icon">📚</div>
+          <div>
+            <div class="oferta-item-titulo">Manual do Protocolo IAM</div>
+            <div class="oferta-item-desc">
+              Aulas completas na plataforma para entender a fundo:
+              <ul>
+                <li>Os 8 pilares e como cada um influencia atração social</li>
+                <li>Erros masculinos mais comuns e por que matam atração</li>
+                <li>Ajustes comportamentais práticos para cada pilar</li>
+                <li>Como calibrar presença, comunicação e tensão sem forçar</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="oferta-item">
+          <div class="oferta-icon">📋</div>
+          <div>
+            <div class="oferta-item-titulo">Plano de Evolução IAM</div>
+            <div class="oferta-item-desc">
+              PDF dinâmico estruturado em 4 semanas:
+              <ul>
+                <li><strong>Semana 1</strong> — Ajuste de presença (postura, contato visual, ritmo de fala)</li>
+                <li><strong>Semana 2</strong> — Comunicação (provocar curiosidade, perguntas magnéticas)</li>
+                <li><strong>Semana 3</strong> — Tensão social (jogo de provocações, timing emocional)</li>
+                <li><strong>Semana 4</strong> — Presença dominante (controle emocional, impacto social)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="oferta-item">
+          <div class="oferta-icon">✅</div>
+          <div>
+            <div class="oferta-item-titulo">Checklist IAM Diário</div>
+            <div class="oferta-item-desc">
+              1 página para criar ação diária:<br>
+              ☐ Mantive postura aberta<br>
+              ☐ Sustentei contato visual<br>
+              ☐ Conduzi pelo menos uma conversa<br>
+              ☐ Usei pausas estratégicas na fala<br>
+              ☐ Gerei tensão em interação
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="preco-box">
+        <div class="preco-de">De R$ 99,90</div>
+        <div class="preco-por">R$ 59</div>
+        <div class="preco-info">Acesso imediato · Pagamento único · 100% digital</div>
+      </div>
+      
+      <button class="btn-primary btn-hero full" onclick="window.location.href='#checkout'">
+        Quero Evoluir Meu IAM Agora
+      </button>
+      
+      <div class="garantia-box">
+        <div class="garantia-titulo">🔒 Garantia de 7 dias — taxa de reembolso de 3%</div>
+        <div class="garantia-texto">Teste o protocolo por 7 dias completos. Se não achar útil, devolvemos 100% do valor — sem burocracia, sem perguntas.</div>
+        <div class="garantia-texto">Nossa taxa de reembolso é de <strong>3%</strong>. Não porque dificultamos o processo. Mas porque entregamos valor real — e quem compra, não se arrepende.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROVA SOCIAL -->
+<section class="prova-resultado">
+  <div class="container">
+    <div class="label-line label">Quem aplicou o protocolo</div>
+    <h2>Resultado real.</h2>
+    
+    <div class="cases-resultado">
+      <div class="case-card">
+        <div class="case-scores">
+          <span class="score-before">73</span>
+          <span class="score-arrow">→</span>
+          <span class="score-after">89</span>
+        </div>
+        <div class="case-period">em 21 dias</div>
+        <div class="case-quote">"O checklist diário mudou tudo. Antes eu sabia o que estava errado, mas não sabia <strong>como</strong> ajustar no dia a dia. Agora tá automático."</div>
+        <div class="case-name">— Pedro L.</div>
+      </div>
+      
+      <div class="case-card">
+        <div class="case-scores">
+          <span class="score-before">51</span>
+          <span class="score-arrow">→</span>
+          <span class="score-after">78</span>
+        </div>
+        <div class="case-period">em 35 dias</div>
+        <div class="case-quote">"Eu achava que já sabia o que fazer. Mas o plano de evolução mostrou que eu estava focando nos pilares errados. Quando ajustei a prioridade, as coisas começaram a fluir."</div>
+        <div class="case-name">— Thiago R.</div>
+      </div>
+      
+      <div class="case-card">
+        <div class="case-scores">
+          <span class="score-before">44</span>
+          <span class="score-arrow">→</span>
+          <span class="score-after">82</span>
+        </div>
+        <div class="case-period">em 60 dias</div>
+        <div class="case-quote">"O protocolo não é motivação. É técnica pura. E por isso funciona. Cada semana tinha foco claro. Não dá pra se perder."</div>
+        <div class="case-name">— Bruno M.</div>
+      </div>
+      
+      <div class="case-card">
+        <div class="case-scores">
+          <span class="score-before">38</span>
+          <span class="score-arrow">→</span>
+          <span class="score-after">71</span>
+        </div>
+        <div class="case-period">em 28 dias</div>
+        <div class="case-quote">"Fiz o diagnóstico, vi que minha presença magnética tava em 31/100. Foquei nisso nas primeiras 2 semanas. Diferença absurda. As pessoas começaram a reagir diferente quando eu falava."</div>
+        <div class="case-name">— Leonardo S.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="iam-footer">
+  <div class="iam-logo">IAM<span>.</span></div>
+  <p>© 2025 Protocolo IAM. Todos os direitos reservados.</p>
+  <p>Diagnóstico educacional</p>
+</footer>
+
+<script src="resultado.js"></script>
+</body>
+</html>
