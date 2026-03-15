@@ -372,7 +372,7 @@ const IAM = (() => {
     document.getElementById('progPilar').textContent = '24 / 24';
   }
 
-  // ─── SUBMIT — chama a API ───────────────────
+  // ─── SUBMIT ─────────────────────────────────
   async function enviarLead() {
     const nome = document.getElementById('leadName').value.trim();
     const email = document.getElementById('leadEmail').value.trim();
@@ -395,31 +395,30 @@ const IAM = (() => {
         body: JSON.stringify({ respostas: state.respostas }),
       });
 
-      if (!res.ok) throw new Error('Erro no servidor.');
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.erro || `Erro ${res.status}`);
+      }
 
       const dados = await res.json();
 
-      // Monta payload para localStorage
       const payload = {
         name: nome,
         email,
         phone,
         pillarScores: dados.pilares.map(p => p.score),
         totalScore: dados.iam,
+        pontosFortes: dados.pontosFortes,
+        gargalos: dados.gargalos,
+        pilarPrioritario: dados.pilarPrioritario,
         timestamp: Date.now(),
       };
 
-      try {
-        localStorage.setItem('iamResult', JSON.stringify(payload));
-      } catch (e) {
-        console.error('Erro ao salvar resultado:', e);
-      }
-
-      // Redireciona para página de resultado
+      localStorage.setItem('iamResult', JSON.stringify(payload));
       window.location.href = 'resultado.html';
 
     } catch (err) {
-      console.error('Erro ao enviar lead:', err);
+      console.error('Erro ao calcular resultado:', err);
       btnSubmit.textContent = textoOriginal;
       btnSubmit.disabled = false;
       alert('Algo deu errado. Tente novamente em instantes.');

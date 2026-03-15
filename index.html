@@ -264,18 +264,22 @@
 .crenca-body strong { color: var(--text); font-weight: 600; }
 
 /* IAM CARD COM RING */
+.iam-card-wrap {
+  position: relative;
+}
 .iam-card {
   background: var(--bg); border: 1px solid rgba(41,82,163,0.2);
-  padding: 40px 44px; position: relative; overflow: hidden;
+  padding: 40px 44px; position: relative;
 }
 .iam-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
   background: linear-gradient(to right, transparent 10%, rgba(41,82,163,0.5) 50%, transparent 90%);
 }
-/* Ring sobreposto no canto superior direito */
+/* Ring sobreposto no canto superior direito — relativo ao wrapper */
 .iam-card-ring {
   position: absolute; top: -50px; right: -50px;
   width: 180px; height: 180px; pointer-events: none;
+  z-index: 2;
 }
 .iam-card-ring-outer {
   position: absolute; inset: 0; border-radius: 50%;
@@ -577,32 +581,114 @@
 }
 
 @media (max-width: 768px) {
-  .hero { padding: 110px 0 80px; }
-  .hero h1 { font-size: clamp(2rem, 8.5vw, 2.8rem); letter-spacing: -1px; }
-  .hero-structural { font-size: 0.8rem; color: var(--text-3); }
+  /* ── LAYOUT OVERFLOW FIX ── */
+  .hero-body > div { min-width: 0; overflow: hidden; }
+
+  /* ── HERO ── */
+  .hero { padding: 96px 0 64px; }
+  .hero-badge {
+    font-size: 0.52rem;
+    letter-spacing: 2px;
+    padding: 8px 12px;
+    max-width: 100%;
+    white-space: normal;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .hero h1 { font-size: 2rem; letter-spacing: -0.75px; }
+  .hero-structural { font-size: 0.84rem; max-width: 100%; margin-top: 16px; }
+  .hero-quote { margin: 18px 0 28px; padding-left: 14px; }
   .hero-quote p { font-size: 0.88rem; }
-  .motivo-layout { grid-template-columns: 1fr; gap: 44px; }
+  .hero-meta { gap: 14px; margin-top: 14px; }
+
+  /* ── SECTIONS ── */
+  .motivo-section { padding: 64px 0; }
+  .motivo-layout { grid-template-columns: 1fr; gap: 36px; }
+  .motivo-left h2 { font-size: clamp(1.6rem, 5vw, 2rem); }
+  .crenca-section { padding: 64px 0; }
+  .crenca-intro { font-size: clamp(1.4rem, 4.5vw, 1.8rem); }
+  .pilares-section { padding: 64px 0; }
+  .pilares-header h2 { font-size: clamp(1.5rem, 4.5vw, 2rem); }
+  .ben-section { padding: 64px 0; }
   .ben-grid { grid-template-columns: 1fr; }
-  .prova-grid { grid-template-columns: 1fr; gap: 20px; }
-  /* proof strip horizontal no mobile */
-  .proof-strip { gap: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .proof-strip-item { min-width: 100px; padding: 8px 12px; flex: 1; }
+  .prova-section { padding: 64px 0; }
+  .prova-grid { grid-template-columns: 1fr; gap: 16px; }
+  .faq-section { padding: 64px 0; }
+  .cta-final { padding: 72px 0; }
+
+  /* ── PROOF STRIP ── */
+  .proof-strip { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .proof-strip-item { min-width: 90px; padding: 8px 12px; flex: 1; }
   .proof-strip-val { font-size: 1rem; }
+
+  /* ── MISC ── */
   .crenca-mitos { gap: 6px; }
-  .iam-card { padding: 30px 24px; }
-  .iam-card-ring { width: 140px; height: 140px; top: -40px; right: -40px; }
+  .iam-card { padding: 28px 22px; }
+  .iam-card-ring { width: 130px; height: 130px; top: -36px; right: -36px; z-index: 2; }
 }
 
 @media (max-width: 480px) {
-  .hero h1 { font-size: 1.9rem; }
-  .hero-structural { font-size: 0.76rem; max-width: 100%; }
+  /* ── HERO ── */
+  .hero { padding: 78px 0 48px; }
+  .hero-badge {
+    font-size: 0.5rem;
+    letter-spacing: 1.5px;
+    padding: 6px 10px;
+    margin-bottom: 16px;
+  }
+  /* H1: cada span é um bloco, escala para caber na linha */
+  .hero h1 {
+    font-size: clamp(1.5rem, 7.5vw, 1.9rem);
+    letter-spacing: -0.5px;
+    line-height: 1.08;
+  }
+  .hero-structural {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    margin-top: 14px;
+  }
+  .hero-quote { margin: 14px 0 22px; padding-left: 12px; }
+  .hero-quote p { font-size: 0.82rem; }
+  .hero-quote span { font-size: 0.8rem; }
+  .hero-meta { gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .hero-meta-item { font-size: 0.5rem; letter-spacing: 2px; }
+
+  /* ── SECTIONS ── */
+  .motivo-section { padding: 48px 0; }
+  .motivo-layout { gap: 24px; }
+  .motivo-left h2 { font-size: 1.5rem; }
+  .motivo-body { font-size: 0.84rem; }
+  .crenca-section { padding: 48px 0; }
+  .crenca-intro { font-size: 1.35rem; }
+  .crenca-body { font-size: 0.84rem; }
+  .pilares-section { padding: 48px 0; }
   .pilares-grid { grid-template-columns: 1fr; }
-  .btn-primary { padding: 15px 26px; font-size: 0.72rem; }
-  .prova-before { font-size: 2.4rem; }
-  .prova-after  { font-size: 3rem; }
-  .faq-q { font-size: 0.86rem; }
-  .cta-action { padding: 36px 24px; }
-  .cta-action-h { font-size: 1.7rem; }
+  .pilares-header { margin-bottom: 28px; }
+  .pilares-header h2 { font-size: 1.45rem; }
+  .ben-section { padding: 48px 0; }
+  .prova-section { padding: 48px 0; }
+  .prova-before { font-size: 2.2rem; }
+  .prova-after  { font-size: 2.8rem; }
+  .prova-quote { font-size: 0.8rem; }
+  .faq-section { padding: 48px 0; }
+  .faq-q { font-size: 0.84rem; }
+  .cta-final { padding: 52px 0; }
+  .cta-final-grid { gap: 28px; }
+  .cta-action { padding: 32px 20px; }
+  .cta-action-h { font-size: 1.6rem; }
+  .cta-action-sub { font-size: 0.78rem; }
+  .cta-action-question { font-size: 0.95rem; margin-bottom: 24px; }
+
+  /* ── BUTTONS ── */
+  .btn-primary { padding: 14px 24px; font-size: 0.7rem; letter-spacing: 2px; }
+  .btn-primary.large { padding: 16px 28px; font-size: 0.72rem; }
+
+  /* ── MISC ── */
+  .iam-card { padding: 22px 16px; }
+  .iam-card-ring { display: none; }
+  .proof-strip-item { min-width: 80px; }
+  .proof-strip-val { font-size: 0.9rem; }
+  .label-line { margin-bottom: 12px; }
 }
 </style>
 </head>
@@ -737,23 +823,23 @@
         <strong>A atração social masculina é muito mais sutil.</strong> Ela depende de padrões que ninguém te ensinou a medir.
       </p>
 
-      <div class="iam-card">
-        <!-- Ring sobreposto canto superior direito -->
+      <div class="iam-card-wrap">
         <div class="iam-card-ring">
           <div class="iam-card-ring-outer"></div>
           <div class="iam-card-ring-mid"></div>
           <div class="iam-card-ring-inner"></div>
         </div>
-
-        <div class="iam-card-label">O que realmente determina sua percepção</div>
-        <div class="iam-card-title"><span>IAM</span> — Índice de Atratividade Masculina.</div>
-        <div class="iam-card-desc">Um sistema que mede os padrões invisíveis que criam atração real — não aparência, não dinheiro, não sorte.</div>
-        <div class="padroes-list">
-          <span class="padrao-tag">Postura</span>
-          <span class="padrao-tag">Presença</span>
-          <span class="padrao-tag">Comunicação</span>
-          <span class="padrao-tag">Leitura social</span>
-          <span class="padrao-tag">Tensão emocional</span>
+        <div class="iam-card">
+          <div class="iam-card-label">O que realmente determina sua percepção</div>
+          <div class="iam-card-title"><span>IAM</span> — Índice de Atratividade Masculina.</div>
+          <div class="iam-card-desc">Um sistema que mede os padrões invisíveis que criam atração real — não aparência, não dinheiro, não sorte.</div>
+          <div class="padroes-list">
+            <span class="padrao-tag">Postura</span>
+            <span class="padrao-tag">Presença</span>
+            <span class="padrao-tag">Comunicação</span>
+            <span class="padrao-tag">Leitura social</span>
+            <span class="padrao-tag">Tensão emocional</span>
+          </div>
         </div>
       </div>
     </div>
@@ -795,12 +881,12 @@
       <p>Em poucos minutos você tem o diagnóstico que ninguém te deu até hoje.</p>
     </div>
     <div class="ben-grid">
-      <div class="ben-card"><div class="ben-icon">⚡</div><div><div class="ben-title">Seus pontos fortes sociais</div><div class="ben-desc">Os pilares que já funcionam e aumentam sua presença.</div></div></div>
-      <div class="ben-card"><div class="ben-icon">🎯</div><div><div class="ben-title">Seus gargalos invisíveis</div><div class="ben-desc">Os padrões que estão matando sua tensão agora — sem você perceber.</div></div></div>
-      <div class="ben-card"><div class="ben-icon">🔥</div><div><div class="ben-title">Seu nível de tensão real</div><div class="ben-desc">Se você cria atração — ou se as pessoas simplesmente se sentem bem perto de você sem nunca te querer.</div></div></div>
-      <div class="ben-card"><div class="ben-icon">📊</div><div><div class="ben-title">Sua prioridade de evolução imediata</div><div class="ben-desc">O pilar exato onde agir primeiro para resultados mais rápidos.</div></div></div>
-      <div class="ben-card"><div class="ben-icon">👁</div><div><div class="ben-title">Seu padrão em ambientes sociais</div><div class="ben-desc">Como você entra, ocupa espaço e sustenta presença.</div></div></div>
-      <div class="ben-card"><div class="ben-icon">🧭</div><div><div class="ben-title">Diagnóstico sem filtro</div><div class="ben-desc">Resultado imediato. Sem enrolação. Sem promessa vazia. Sem horóscopo.</div></div></div>
+      <div class="ben-card"><div class="ben-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div class="ben-title">Seus pontos fortes sociais</div><div class="ben-desc">Os pilares que já funcionam e aumentam sua presença.</div></div></div>
+      <div class="ben-card"><div class="ben-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg></div><div><div class="ben-title">Seus gargalos invisíveis</div><div class="ben-desc">Os padrões que estão matando sua tensão agora — sem você perceber.</div></div></div>
+      <div class="ben-card"><div class="ben-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div><div><div class="ben-title">Seu nível de tensão real</div><div class="ben-desc">Se você cria atração — ou se as pessoas simplesmente se sentem bem perto de você sem nunca te querer.</div></div></div>
+      <div class="ben-card"><div class="ben-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div><div class="ben-title">Sua prioridade de evolução imediata</div><div class="ben-desc">O pilar exato onde agir primeiro para resultados mais rápidos.</div></div></div>
+      <div class="ben-card"><div class="ben-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><div><div class="ben-title">Seu padrão em ambientes sociais</div><div class="ben-desc">Como você entra, ocupa espaço e sustenta presença.</div></div></div>
+      <div class="ben-card"><div class="ben-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div><div><div class="ben-title">Diagnóstico sem filtro</div><div class="ben-desc">Resultado imediato. Sem enrolação. Sem promessa vazia. Sem horóscopo.</div></div></div>
     </div>
   </div>
 </section>
@@ -911,35 +997,35 @@
       <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;margin-bottom:0">Perguntas frequentes.</h2>
       <div class="faq-list">
         <div class="faq-item">
-          <button class="faq-trigger" onclick="toggleFaq(this)">
+          <button class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
             <span class="faq-q">Meus dados vão ser expostos?</span>
             <span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
           </button>
           <div class="faq-body"><div class="faq-a">Não. O diagnóstico é 100% privado. Suas respostas são usadas apenas para gerar seu resultado personalizado. Nada é compartilhado.</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-trigger" onclick="toggleFaq(this)">
+          <button class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
             <span class="faq-q">Quanto tempo leva para fazer?</span>
             <span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
           </button>
           <div class="faq-body"><div class="faq-a">Entre 4 e 5 minutos. São perguntas objetivas sobre comportamento em situações reais. Você responde e recebe o resultado na hora.</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-trigger" onclick="toggleFaq(this)">
+          <button class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
             <span class="faq-q">Isso é tipo "curso de sedução"?</span>
             <span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
           </button>
           <div class="faq-body"><div class="faq-a">Não. É diagnóstico comportamental. Não ensinamos técnicas de "pegação". Mostramos onde seu padrão está falhando e como calibrar presença, comunicação e tensão.</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-trigger" onclick="toggleFaq(this)">
+          <button class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
             <span class="faq-q">O resultado é confiável ou é genérico?</span>
             <span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
           </button>
           <div class="faq-body"><div class="faq-a">O IAM usa um sistema de pontuação inteligente cruzada em 8 pilares. O resultado é específico para você, baseado nas suas respostas. Não é horóscopo.</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-trigger" onclick="toggleFaq(this)">
+          <button class="faq-trigger" aria-expanded="false" onclick="toggleFaq(this)">
             <span class="faq-q">Preciso pagar para fazer o diagnóstico?</span>
             <span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
           </button>
@@ -988,7 +1074,7 @@
 
 <footer class="iam-footer">
   <div class="iam-logo">IAM<span>.</span></div>
-  <p>© 2025 Protocolo IAM. Todos os direitos reservados.</p>
+  <p>© 2026 Protocolo IAM. Todos os direitos reservados.</p>
   <p>Diagnóstico educacional</p>
 </footer>
 
@@ -1020,7 +1106,7 @@
       <div class="form-row"><label>E-mail</label><input type="email" id="leadEmail" placeholder="seu@email.com" autocomplete="email"></div>
       <div class="form-row"><label>WhatsApp</label><input type="tel" id="leadPhone" placeholder="(11) 99999-9999" autocomplete="tel"></div>
       <button class="btn-primary full" onclick="IAM.submitLead()" style="margin-top:8px">Ver meu resultado completo →</button>
-      <p class="lead-privacy">🔒 Privado. Zero spam.</p>
+      <p class="lead-privacy"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-1px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Privado. Zero spam.</p>
     </div>
   </div>
 </div>
@@ -1029,8 +1115,14 @@
 function toggleFaq(trigger) {
   const item = trigger.closest('.faq-item');
   const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-  if (!isOpen) item.classList.add('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => {
+    i.classList.remove('open');
+    i.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+  });
+  if (!isOpen) {
+    item.classList.add('open');
+    trigger.setAttribute('aria-expanded', 'true');
+  }
 }
 </script>
 <script src="script.js"></script>

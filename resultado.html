@@ -7,6 +7,17 @@
 <link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
+/* ── ALIASES DE VARIÁVEIS (compatibilidade com style.css) ── */
+:root {
+  --bg-elevated:    var(--surface-2);
+  --bg-card:        var(--surface);
+  --text-primary:   var(--text);
+  --text-secondary: var(--text-2);
+  --text-tertiary:  var(--text-3);
+  --accent-primary: var(--accent-ui);
+  --border-emphasis: var(--border-md);
+}
+
 /* ── RESULTADO ESPECÍFICO ─── */
 .resultado-hero {
   padding: 8rem 0 4rem;
@@ -363,8 +374,11 @@
 }
 
 .oferta-icon {
-  font-size: 2rem;
   flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 2px;
+  color: var(--accent-ui);
 }
 
 .oferta-item-titulo {
@@ -455,21 +469,173 @@
   margin-top: 3rem;
 }
 
+/* CASE CARDS (depoimentos) */
+.case-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  transition: border-color 0.3s;
+}
+.case-card:hover { border-color: rgba(41, 82, 163, 0.2); }
+.case-scores {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.score-before {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-3);
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.score-arrow {
+  font-size: 1.5rem;
+  color: rgba(41, 82, 163, 0.5);
+  padding-bottom: 6px;
+}
+.score-after {
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: var(--accent-ui);
+  line-height: 1;
+  letter-spacing: -1px;
+  text-shadow: 0 0 24px rgba(41, 82, 163, 0.35);
+}
+.case-period {
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 1rem;
+}
+.case-quote {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--text-2);
+  line-height: 1.75;
+  font-style: italic;
+  border-left: 2px solid var(--border);
+  padding-left: 0.875rem;
+  margin-bottom: 0.75rem;
+}
+.case-name {
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
-  .analise-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  /* ── HERO ── */
+  .resultado-hero { padding: 5rem 0 2.5rem; }
+  .resultado-badge { font-size: 0.6rem; letter-spacing: 0.1em; }
+  .resultado-nome { font-size: clamp(1.1rem, 4vw, 1.6rem); margin-bottom: 2rem; }
+  .score-display { width: 180px; height: 180px; }
+  .score-number { font-size: 3.4rem; }
+  .score-max { font-size: 0.8rem; }
+  .classificacao { font-size: 0.875rem; }
+
+  /* ── ANÁLISE ── */
+  .analise-section { padding: 3rem 0; }
+  .analise-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .cards-analise { grid-template-columns: 1fr; margin-top: 2rem; }
+  .card-glow { padding: 1.5rem; }
+  .card-titulo { font-size: 0.875rem; }
+
+  /* ── DIAGNÓSTICO ── */
+  .diagnostico-section { padding: 3rem 0; }
+  .diagnostico-titulo { font-size: 1.35rem; }
+  .diagnostico-texto { font-size: 0.9rem; line-height: 1.75; }
+  .pilar-prioritario { padding: 1.5rem; margin: 2rem 0; }
+  .prioritario-titulo { font-size: 1.4rem; }
+  .prioritario-texto { font-size: 0.9rem; }
+  .proximos-passos { padding: 1.5rem; }
+  .proximos-passos p { font-size: 0.9rem; }
+
+  /* ── OFERTA ── */
+  .oferta-section { padding: 3rem 0; }
+  .oferta-card { max-width: 100%; padding: 2rem 1.25rem; }
+  .oferta-titulo { font-size: 1.65rem; }
+  .oferta-subtitulo { font-size: 0.9rem; margin-bottom: 2rem; }
+  .oferta-itens { gap: 1.5rem; margin-bottom: 2rem; }
+  .preco-por { font-size: 2.8rem; }
+  .garantia-box { padding: 1.5rem; }
+  .garantia-titulo { font-size: 1rem; }
+
+  /* ── PROVA SOCIAL ── */
+  .prova-resultado { padding: 3rem 0; }
+  .cases-resultado { grid-template-columns: 1fr; }
+  .case-card { padding: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  html, body { max-width: 100vw; overflow-x: hidden; }
+
+  /* ── HERO ── */
+  .resultado-hero { padding: 4rem 0 2rem; }
+  .resultado-nome {
+    font-size: clamp(0.95rem, 4.5vw, 1.2rem);
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
   }
-  .cards-analise {
-    grid-template-columns: 1fr;
-  }
-  .cases-resultado {
-    grid-template-columns: 1fr;
-  }
-  .oferta-card {
-    padding: 2rem 1.5rem;
-  }
+  .score-display { width: 148px; height: 148px; margin-bottom: 1.25rem; }
+  .score-number { font-size: 2.75rem; }
+  .score-max { font-size: 0.75rem; }
+  .classificacao { font-size: 0.8rem; padding: 0.5rem 1rem; }
+
+  /* ── ANÁLISE ── */
+  .analise-section { padding: 2.5rem 0; }
+  .pilar-item { padding: 1rem 1.25rem; }
+  .pilar-item-nome { font-size: 0.82rem; }
+  .pilar-item-score { font-size: 0.95rem; }
+
+  /* ── DIAGNÓSTICO ── */
+  .diagnostico-section { padding: 2.5rem 0; }
+  .diagnostico-box { margin-top: 1.5rem; }
+  .diagnostico-titulo { font-size: 1.2rem; }
+  .diagnostico-texto { font-size: 0.875rem; }
+  .pilar-analise { padding: 1rem; }
+  .pilar-analise-titulo { font-size: 0.875rem; }
+  .pilar-analise-texto { font-size: 0.82rem; }
+  .pilar-prioritario { padding: 1.25rem; }
+  .prioritario-label { font-size: 0.58rem; }
+  .prioritario-titulo { font-size: 1.2rem; }
+  .prioritario-texto { font-size: 0.875rem; }
+  .proximos-passos { padding: 1.25rem; }
+  .proximos-passos p { font-size: 0.875rem; }
+
+  /* ── OFERTA ── */
+  .oferta-section { padding: 2.5rem 0; }
+  .oferta-card { padding: 1.5rem 1rem; }
+  .oferta-titulo { font-size: 1.35rem; line-height: 1.2; }
+  .oferta-subtitulo { font-size: 0.84rem; margin-bottom: 1.5rem; }
+  .oferta-item { gap: 0.875rem; }
+  .oferta-icon { font-size: 1.4rem; }
+  .oferta-item-titulo { font-size: 0.9rem; }
+  .oferta-item-desc { font-size: 0.82rem; }
+  .preco-box { padding: 1.5rem 1rem; }
+  .preco-de { font-size: 1rem; }
+  .preco-por { font-size: 2.2rem; }
+  .preco-info { font-size: 0.75rem; }
+  .garantia-box { padding: 1.25rem; }
+  .garantia-titulo { font-size: 0.9rem; }
+  .garantia-texto { font-size: 0.82rem; }
+
+  /* ── PROVA SOCIAL ── */
+  .prova-resultado { padding: 2.5rem 0; }
+  .case-card { padding: 1.25rem; }
+  .score-before { font-size: 2rem; }
+  .score-after { font-size: 2.6rem; }
+  .case-quote { font-size: 0.8rem; line-height: 1.65; }
+
+  /* ── HIERARQUIA DE TEXTO GLOBAL ── */
+  .label-line { margin-bottom: 10px; }
+  h2 { font-size: clamp(1.35rem, 5.5vw, 1.75rem) !important; }
 }
 </style>
 </head>
@@ -518,12 +684,12 @@
     
     <div class="cards-analise">
       <div class="card-glow fortes">
-        <div class="card-titulo">✓ Seus 3 Pilares Fortes</div>
+        <div class="card-titulo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Seus 3 Pilares Fortes</div>
         <div class="card-lista" id="pontosFortes"></div>
       </div>
       
       <div class="card-glow gargalos">
-        <div class="card-titulo">⚠ Seus 3 Gargalos Críticos</div>
+        <div class="card-titulo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Seus 3 Gargalos Críticos</div>
         <div class="card-lista" id="gargalos"></div>
       </div>
     </div>
@@ -556,7 +722,7 @@
 </section>
 
 <!-- OFERTA -->
-<section class="oferta-section">
+<section class="oferta-section" id="checkout">
   <div class="container">
     <div class="label-line label" style="justify-content: center;">Protocolo IAM 100</div>
     
@@ -566,7 +732,7 @@
       
       <div class="oferta-itens">
         <div class="oferta-item">
-          <div class="oferta-icon">📚</div>
+          <div class="oferta-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
           <div>
             <div class="oferta-item-titulo">Manual do Protocolo IAM</div>
             <div class="oferta-item-desc">
@@ -582,7 +748,7 @@
         </div>
         
         <div class="oferta-item">
-          <div class="oferta-icon">📋</div>
+          <div class="oferta-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
           <div>
             <div class="oferta-item-titulo">Plano de Evolução IAM</div>
             <div class="oferta-item-desc">
@@ -598,16 +764,18 @@
         </div>
         
         <div class="oferta-item">
-          <div class="oferta-icon">✅</div>
+          <div class="oferta-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
           <div>
             <div class="oferta-item-titulo">Checklist IAM Diário</div>
             <div class="oferta-item-desc">
-              1 página para criar ação diária:<br>
-              ☐ Mantive postura aberta<br>
-              ☐ Sustentei contato visual<br>
-              ☐ Conduzi pelo menos uma conversa<br>
-              ☐ Usei pausas estratégicas na fala<br>
-              ☐ Gerei tensão em interação
+              1 página para criar ação diária:
+              <div style="margin-top:0.6rem;display:flex;flex-direction:column;gap:5px">
+                <div class="chk-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg> Mantive postura aberta</div>
+                <div class="chk-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg> Sustentei contato visual</div>
+                <div class="chk-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg> Conduzi pelo menos uma conversa</div>
+                <div class="chk-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg> Usei pausas estratégicas na fala</div>
+                <div class="chk-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg> Gerei tensão em interação</div>
+              </div>
             </div>
           </div>
         </div>
@@ -624,7 +792,7 @@
       </button>
       
       <div class="garantia-box">
-        <div class="garantia-titulo">🔒 Garantia de 7 dias — taxa de reembolso de 3%</div>
+        <div class="garantia-titulo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-2px;margin-right:6px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Garantia de 7 dias — taxa de reembolso de 3%</div>
         <div class="garantia-texto">Teste o protocolo por 7 dias completos. Se não achar útil, devolvemos 100% do valor — sem burocracia, sem perguntas.</div>
         <div class="garantia-texto">Nossa taxa de reembolso é de <strong>3%</strong>. Não porque dificultamos o processo. Mas porque entregamos valor real — e quem compra, não se arrepende.</div>
       </div>
@@ -688,7 +856,7 @@
 
 <footer class="iam-footer">
   <div class="iam-logo">IAM<span>.</span></div>
-  <p>© 2025 Protocolo IAM. Todos os direitos reservados.</p>
+  <p>© 2026 Protocolo IAM. Todos os direitos reservados.</p>
   <p>Diagnóstico educacional</p>
 </footer>
 
